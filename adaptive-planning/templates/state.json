@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "plan_id": "synthetic-plan",
+  "revision": 0,
+  "updated_at": "2026-11-02T07:00:00-07:00",
+  "profile": {
+    "timezone": "America/Denver",
+    "week_start": 0,
+    "sleep": {
+      "start": "23:00",
+      "end": "07:00"
+    }
+  },
+  "tasks": [],
+  "occurrences": [],
+  "fixed_events": [],
+  "model_week": [],
+  "dated_plan": {
+    "start": "2026-11-02",
+    "end": "2026-11-09",
+    "blocks": [],
+    "unscheduled": []
+  },
+  "progress": [],
+  "feedback": [],
+  "adaptations": [],
+  "applied_updates": [],
+  "extensions": {}
+}

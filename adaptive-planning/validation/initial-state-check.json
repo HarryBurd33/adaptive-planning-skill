@@ -1,0 +1,68 @@
+{
+  "valid": true,
+  "errors": [],
+  "warnings": [],
+  "totals": {
+    "paper": {
+      "remaining_minutes": 360,
+      "scheduled_minutes": 360.0,
+      "unallocated_minutes": 0
+    },
+    "lift@weekly:2026-11-02#1": {
+      "remaining_minutes": 60,
+      "scheduled_minutes": 60.0,
+      "unallocated_minutes": 0
+    },
+    "lift@weekly:2026-11-02#2": {
+      "remaining_minutes": 60,
+      "scheduled_minutes": 60.0,
+      "unallocated_minutes": 0
+    },
+    "lift@weekly:2026-11-02#3": {
+      "remaining_minutes": 60,
+      "scheduled_minutes": 60.0,
+      "unallocated_minutes": 0
+    },
+    "laundry@weekly:2026-11-02#1": {
+      "remaining_minutes": 120,
+      "scheduled_minutes": 120.0,
+      "unallocated_minutes": 0
+    },
+    "reading@daily:2026-11-02#1": {
+      "remaining_minutes": 30,
+      "scheduled_minutes": 30.0,
+      "unallocated_minutes": 0
+    },
+    "reading@daily:2026-11-03#1": {
+      "remaining_minutes": 30,
+      "scheduled_minutes": 30.0,
+      "unallocated_minutes": 0
+    },
+    "reading@daily:2026-11-04#1": {
+      "remaining_minutes": 30,
+      "scheduled_minutes": 30.0,
+      "unallocated_minutes": 0
+    },
+    "reading@daily:2026-11-05#1": {
+      "remaining_minutes": 30,
+      "scheduled_minutes": 30.0,
+      "unallocated_minutes": 0
+    },
+    "reading@daily:2026-11-06#1": {
+      "remaining_minutes": 30,
+      "scheduled_minutes": 30.0,
+      "unallocated_minutes": 0
+    },
+    "reading@daily:2026-11-07#1": {
+      "remaining_minutes": 30,
+      "scheduled_minutes": 30.0,
+      "unallocated_minutes": 0
+    },
+    "reading@daily:2026-11-08#1": {
+      "remaining_minutes": 30,
+      "scheduled_minutes": 30.0,
+      "unallocated_minutes": 0
+    }
+  },
+  "outside_horizon": {}
+}

@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.DS_Store
+.checkpoint/
+.forge/
+planning-state/
+*.lock

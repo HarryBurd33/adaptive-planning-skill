@@ -1,0 +1,19 @@
+{
+  "behavior_files": {
+    "SKILL.md": "ea7d09771d03ce843914383a8ba79e2b2769574e900b59dbc435215eea75a621",
+    "references/adaptation.md": "0f63ae2b815fe47ac6bc7386f9a3014c1ca70c0c8901f7f036ae50aacf7761a0",
+    "references/planning.md": "5ac3f3f83ada6410374903142c0cfff7fd47e0ba01cf91892982265f2c1860de",
+    "references/provenance.md": "ebfc78440fbf277c76c43e2bd60f28b96be4997fc5c2da76da9739e3b8c69831",
+    "references/state.md": "85dc2983577a8a312d1992e331e31428309b0bdafe1153f4f26615caac0d1ff0",
+    "state.schema.json": "c747fadaf92bdeb58c38149c8dde9a8460d9729d4d70fec6bb1e158d5db35d11",
+    "templates/state.json": "867007e23c07d9273520237622a3a1c65f2eab9aff39388928764ece06b0ef6d",
+    "scripts/planning_state.py": "ece89b7993d7e5eab2adf4a01326777987ec515bb9dcf89b9c718c3d2c8c4bf3"
+  },
+  "behavior_bundle_sha256": "cf255398f910b046a427111f930c3dcb471b58b3bf9b036b53ddd401b6212bfe",
+  "frozen_cases_sha256": "0cbb37fe815e9a8d5671f6544fae86e0d9e6771e676cafd9405315de6124ee13",
+  "baseline_responses_sha256": "d11ed2a1450a479f6108cb65ab9bdbfd59509d9f1d61ca9972157036caf8acc8",
+  "model_identity": "unknown inherited configured model",
+  "reasoning_effort": "unknown inherited effort",
+  "host_python": "3.15.0",
+  "comparison": "inconclusive: inherited context contamination; no causal improvement claim"
+}

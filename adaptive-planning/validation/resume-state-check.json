@@ -1,0 +1,22 @@
+{
+  "valid": true,
+  "errors": [],
+  "warnings": [
+    "paper: 120.0 minutes unallocated (required)",
+    "reading@daily:2026-11-02#1: recurrence occurrence missing; requirement unresolved",
+    "reading@daily:2026-11-03#1: recurrence occurrence missing; requirement unresolved",
+    "reading@daily:2026-11-04#1: recurrence occurrence missing; requirement unresolved",
+    "reading@daily:2026-11-05#1: recurrence occurrence missing; requirement unresolved",
+    "reading@daily:2026-11-06#1: recurrence occurrence missing; requirement unresolved",
+    "reading@daily:2026-11-07#1: recurrence occurrence missing; requirement unresolved",
+    "reading@daily:2026-11-08#1: recurrence occurrence missing; requirement unresolved"
+  ],
+  "totals": {
+    "paper": {
+      "remaining_minutes": 240,
+      "scheduled_minutes": 120.0,
+      "unallocated_minutes": 120.0
+    }
+  },
+  "outside_horizon": {}
+}

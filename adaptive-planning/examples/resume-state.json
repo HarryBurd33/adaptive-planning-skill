@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "plan_id": "synthetic-resume",
+  "revision": 4,
+  "updated_at": "2026-11-04T13:00:00-07:00",
+  "profile": {
+    "timezone": "America/Denver",
+    "week_start": 0,
+    "sleep": {
+      "start": "23:00",
+      "end": "07:00"
+    }
+  },
+  "tasks": [
+    {
+      "id": "paper",
+      "title": "Paper",
+      "remaining_minutes": 240,
+      "deadline": "2026-11-06T17:00:00-07:00",
+      "preferred_date": null,
+      "priority": "high",
+      "required": true,
+      "flexible": true,
+      "dependencies": [],
+      "min_session_minutes": 30,
+      "recurrence": null
+    },
+    {
+      "id": "reading",
+      "title": "Reading",
+      "remaining_minutes": null,
+      "deadline": null,
+      "preferred_date": null,
+      "priority": "medium",
+      "required": false,
+      "flexible": true,
+      "dependencies": [],
+      "min_session_minutes": 30,
+      "recurrence": {
+        "frequency": "daily",
+        "count": 1,
+        "minutes": 30
+      }
+    }
+  ],
+  "occurrences": [],
+  "fixed_events": [],
+  "model_week": [
+    {
+      "weekday": 0,
+      "start": "07:15",
+      "end": "07:45",
+      "task_id": "reading",
+      "label": "Reading, morning preference"
+    },
+    {
+      "weekday": 1,
+      "start": "07:15",
+      "end": "07:45",
+      "task_id": "reading",
+      "label": "Reading, morning preference"
+    },
+    {
+      "weekday": 2,
+      "start": "07:15",
+      "end": "07:45",
+      "task_id": "reading",
+      "label": "Reading, morning preference"
+    },
+    {
+      "weekday": 3,
+      "start": "07:15",
+      "end": "07:45",
+      "task_id": "reading",
+      "label": "Reading, morning preference"
+    },
+    {
+      "weekday": 4,
+      "start": "07:15",
+      "end": "07:45",
+      "task_id": "reading",
+      "label": "Reading, morning preference"
+    },
+    {
+      "weekday": 5,
+      "start": "07:15",
+      "end": "07:45",
+      "task_id": "reading",
+      "label": "Reading, morning preference"
+    },
+    {
+      "weekday": 6,
+      "start": "07:15",
+      "end": "07:45",
+      "task_id": "reading",
+      "label": "Reading, morning preference"
+    }
+  ],
+  "dated_plan": {
+    "start": "2026-11-02",
+    "end": "2026-11-09",
+    "blocks": [
+      {
+        "id": "P2",
+        "task_id": "paper",
+        "occurrence_id": null,
+        "start": "2026-11-03T13:00:00-07:00",
+        "end": "2026-11-03T15:00:00-07:00",
+        "status": "completed"
+      },
+      {
+        "id": "P3",
+        "task_id": "paper",
+        "occurrence_id": null,
+        "start": "2026-11-05T13:00:00-07:00",
+        "end": "2026-11-05T15:00:00-07:00",
+        "status": "planned"
+      }
+    ],
+    "unscheduled": [
+      {
+        "task_id": "paper",
+        "occurrence_id": null,
+        "minutes": 120,
+        "reason": "Earlier P1 session elapsed, completion unknown; 120m remaining needs placement"
+      }
+    ]
+  },
+  "progress": [
+    {
+      "id": "progress-P2",
+      "task_id": "paper",
+      "occurrence_id": null,
+      "observed_at": "2026-11-03T15:00:00-07:00",
+      "remaining_minutes": 240,
+      "actual_minutes": 120,
+      "note": "Tuesday120min completed. Other completion unreported."
+    }
+  ],
+  "feedback": [
+    {
+      "id": "f-reading",
+      "observed_at": "2026-11-04T12:00:00-07:00",
+      "text": "Evening reading missed3 times due exhaustion; mornings worked2; wake stays07:00"
+    }
+  ],
+  "adaptations": [
+    {
+      "id": "A-reading",
+      "observed_at": "2026-11-04T12:05:00-07:00",
+      "evidence_ids": [
+        "f-reading"
+      ],
+      "before": {
+        "reading_window": "20:30\u201321:00"
+      },
+      "after": {
+        "reading_window": "07:15\u201307:45"
+      },
+      "reason": "Reported repeated exhaustion and successful mornings; preserve wake",
+      "reversible": true,
+      "reverts": null
+    }
+  ],
+  "applied_updates": [],
+  "extensions": {
+    "as_of": "2026-11-04T13:00:00-07:00",
+    "exam_week_exception": "Thursday reading temporarily at08:00 due07:15 exam prep; normal morning model week stays",
+    "candidate_availability": "Thu15:30\u201317:30 confirmed free; other availability unknown",
+    "pending": "Materialize daily reading occurrences before claiming weekly completeness",
+    "applied_semantics": "P2 progress already incorporated into240m remaining; do not subtract again"
+  }
+}

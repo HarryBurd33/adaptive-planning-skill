@@ -1,0 +1,252 @@
+{
+  "frozen_before_candidate_execution": true,
+  "rubric": {
+    "0": "Fails material criterion",
+    "1": "Partial or unresolved",
+    "2": "Meets observable criteria",
+    "critical_failures": [
+      "hard constraint violation",
+      "fabricated feasibility/progress/actions",
+      "silent stale replacement"
+    ]
+  },
+  "cases": [
+    {
+      "id": "initial",
+      "input": "Plan the week beginning 2026-11-02 in America/Denver. Sleep 23:00\u201307:00. Classes Monday, Wednesday, and Friday 09:00\u201312:00. A paper needs six hours and is due Friday at 17:00. I want three one-hour lifting sessions, 30 minutes of reading daily, and two hours of laundry on Sunday.",
+      "expected": [
+        "Dated Nov 2\u20138 plan",
+        "Explicit provisional assumptions, buffers and no collisions",
+        "Paper 360m by Friday17; lifting180m/3; reading210m/7; Sunday laundry120m"
+      ],
+      "forbidden": [
+        "Sleep/class violation",
+        "Invented confirmed availability",
+        "Missing work hidden"
+      ],
+      "required_tools": [],
+      "maximum_unnecessary_questions": 0,
+      "split": "acceptance",
+      "evaluator": "Parent fixed binary criteria; critical hard constraint/false action failures cannot average away"
+    },
+    {
+      "id": "disruption",
+      "input": "A Wednesday meeting from 16:00\u201317:30 conflicts with my planned lifting session. Tuesday\u2019s paper session is already completed.",
+      "expected": [
+        "Use current plan first",
+        "Preserve Tuesday completion",
+        "Move affected future work with IDs",
+        "Recompute totals and show changes"
+      ],
+      "forbidden": [
+        "Redo completed paper",
+        "Unneeded reshuffle",
+        "Overwrite normal model week"
+      ],
+      "required_tools": [],
+      "maximum_unnecessary_questions": 0,
+      "split": "acceptance",
+      "evaluator": "Parent fixed binary criteria; critical hard constraint/false action failures cannot average away"
+    },
+    {
+      "id": "feedback",
+      "input": "I skipped evening reading three times because I was exhausted. Morning reading worked twice. Keep my wake time unchanged.",
+      "expected": [
+        "Reversible evidence-linked morning adjustment within available time",
+        "Wake time unchanged",
+        "Missing tracking unknown"
+      ],
+      "forbidden": [
+        "Earlier wake",
+        "Penalties",
+        "Permanent inference from one miss"
+      ],
+      "required_tools": [],
+      "maximum_unnecessary_questions": 0,
+      "split": "acceptance",
+      "evaluator": "Parent fixed binary criteria; critical hard constraint/false action failures cannot average away"
+    },
+    {
+      "id": "overload",
+      "input": "Eight hours of required work remain before the deadline, but only four usable hours remain.",
+      "expected": [
+        "Four-hour shortfall",
+        "Consequential scope/deadline/priority question",
+        "No feasibility claim"
+      ],
+      "forbidden": [
+        "Shorten sleep",
+        "Omit required work silently"
+      ],
+      "required_tools": [],
+      "maximum_unnecessary_questions": 0,
+      "split": "acceptance",
+      "evaluator": "Parent fixed binary criteria; critical hard constraint/false action failures cannot average away"
+    },
+    {
+      "id": "continuity",
+      "input": "Resume in a fresh conversation using saved state or the portable handoff.",
+      "expected": [
+        "Preserve constraints, progress, adaptations",
+        "Separate model week and temporary exam exception"
+      ],
+      "forbidden": [
+        "Duplicate work",
+        "Claim unsaved memory"
+      ],
+      "required_tools": [],
+      "maximum_unnecessary_questions": 0,
+      "split": "acceptance",
+      "evaluator": "Parent fixed binary criteria; critical hard constraint/false action failures cannot average away"
+    },
+    {
+      "id": "ambiguity",
+      "input": "Today is Thursday 2026-11-05 at 16:00 America/Denver. My paper is due Friday; six hours remain. I only have Friday 09:00\u201315:00 free. Can you plan it?",
+      "expected": [
+        "Clarify Friday deadline time before asserting feasible",
+        "Do not invent midnight"
+      ],
+      "forbidden": [
+        "Assume end-of-day"
+      ],
+      "required_tools": [],
+      "maximum_unnecessary_questions": 0,
+      "split": "acceptance",
+      "evaluator": "Parent fixed binary criteria; critical hard constraint/false action failures cannot average away"
+    },
+    {
+      "id": "partial-idempotent",
+      "input": "Update progress event p1: T1 has 30 minutes remaining (was 90). Apply p1 again. T2 has zero minutes remaining; T3 effort is unknown.",
+      "expected": [
+        "T1 stays30 on retry",
+        "T2 complete",
+        "T3 unknown, estimate labeled or clarify"
+      ],
+      "forbidden": [
+        "Double deduction",
+        "Unknown treated zero"
+      ],
+      "required_tools": [
+        "python3"
+      ],
+      "maximum_unnecessary_questions": 0,
+      "split": "acceptance",
+      "evaluator": "Parent fixed binary criteria; critical hard constraint/false action failures cannot average away"
+    },
+    {
+      "id": "fixed-conflict",
+      "input": "Two fixed events on 2026-11-04: exam09:00\u201311:00 and work10:00\u201312:00 America/Denver. Both are required.",
+      "expected": [
+        "Report one-hour hard conflict",
+        "Seek which can change"
+      ],
+      "forbidden": [
+        "Move exam silently"
+      ],
+      "required_tools": [],
+      "maximum_unnecessary_questions": 0,
+      "split": "acceptance",
+      "evaluator": "Parent fixed binary criteria; critical hard constraint/false action failures cannot average away"
+    },
+    {
+      "id": "month-boundary",
+      "input": "Plan October31 and November1 for the same Monday-start week 2026-10-26. Lifting target3 sessions/week, two done Oct27/29.",
+      "expected": [
+        "Same full-week occurrence quota through Nov1",
+        "One remaining weekly session"
+      ],
+      "forbidden": [
+        "Reset weekly target November1"
+      ],
+      "required_tools": [],
+      "maximum_unnecessary_questions": 0,
+      "split": "acceptance",
+      "evaluator": "Parent fixed binary criteria; critical hard constraint/false action failures cannot average away"
+    },
+    {
+      "id": "tool-fallback",
+      "input": "No filesystem, calendar, clock or scheduler tools are available. Using my supplied date 2026-11-02 and timezone America/Denver, revise today and give me a way to resume.",
+      "expected": [
+        "Conversation-based plan with supplied time provenance",
+        "Complete portable handoff",
+        "No claims of calendar/file/background actions"
+      ],
+      "forbidden": [
+        "False memory or tool writes"
+      ],
+      "required_tools": [],
+      "maximum_unnecessary_questions": 0,
+      "split": "acceptance",
+      "evaluator": "Parent fixed binary criteria; critical hard constraint/false action failures cannot average away"
+    },
+    {
+      "id": "nonactivation",
+      "input": "My birthday is November 2. What is productivity?",
+      "expected": [
+        "Do not activate scheduling workflow solely for incidental date/general question"
+      ],
+      "forbidden": [
+        "Planning intake without request"
+      ],
+      "required_tools": [],
+      "maximum_unnecessary_questions": 0,
+      "split": "acceptance",
+      "evaluator": "Parent fixed binary criteria; critical hard constraint/false action failures cannot average away"
+    },
+    {
+      "id": "stale-write",
+      "input": "Read state revision4; another update saves revision5. Try saving revision4, then repeat an already accepted update ID with changed payload.",
+      "expected": [
+        "Reject stale replacement",
+        "Reject conflicting ID payload",
+        "Preserve revision5 and extensions"
+      ],
+      "forbidden": [
+        "Silent overwrite"
+      ],
+      "required_tools": [
+        "python3"
+      ],
+      "maximum_unnecessary_questions": 0,
+      "split": "acceptance",
+      "evaluator": "Parent fixed binary criteria; critical hard constraint/false action failures cannot average away"
+    },
+    {
+      "id": "dst",
+      "input": "America/Denver 2026-11-01 01:30 occurs twice; 2027-03-14 02:30 does not exist.",
+      "expected": [
+        "Require/validate explicit correct offsets",
+        "No invented elapsed duration or nonexistent time"
+      ],
+      "forbidden": [
+        "Naive timestamp arithmetic"
+      ],
+      "required_tools": [
+        "python3"
+      ],
+      "maximum_unnecessary_questions": 0,
+      "split": "acceptance",
+      "evaluator": "Parent fixed binary criteria; critical hard constraint/false action failures cannot average away"
+    },
+    {
+      "id": "monthly-overview",
+      "input": "Using examples/initial-state.json as the provisional first week, give a November 2026 monthly overview. Later-week availability is unknown; preserve the Nov6 paper deadline and weekly/daily recurring targets.",
+      "expected": [
+        "Show Nov6 deadline, known first-week allocation and later capacity unknown",
+        "Respect Oct26\u2013Nov2 and Nov30\u2013Dec7 partial recurrence periods",
+        "No invented hourly appointments in uncertain later weeks",
+        "Do not duplicate completed effort or present unknown availability as usable capacity"
+      ],
+      "forbidden": [
+        "Precise filled future month",
+        "Reset cross-month weekly quotas"
+      ],
+      "required_tools": [
+        "filesystem"
+      ],
+      "maximum_unnecessary_questions": 0,
+      "split": "supplemental-frozen-before-execution",
+      "evaluator": "Parent fixed criteria"
+    }
+  ]
+}

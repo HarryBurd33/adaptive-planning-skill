@@ -1,0 +1,38 @@
+{
+  "algorithm": "sha256",
+  "files": {
+    "LICENSE": "6c584e2234b5e392538f605e854e307df4eb205418630b7eae49a647c8dbdbf8",
+    "NOTICE.md": "8fcdc8dc8a0850853aa666fd394009134daf23ed83046d16a1b8fc112973b12a",
+    "README.md": "e16d969dd8ca366a7f30672cb3541c17b29980262afe11aafe29fbc601b26c59",
+    "SKILL.md": "ea7d09771d03ce843914383a8ba79e2b2769574e900b59dbc435215eea75a621",
+    "examples/initial-state.json": "fb1212d18d024a3995afc6243173eb25a44a4419a3c8a90e773d63c3810a5a1f",
+    "examples/resume-state.json": "a0f0afa69f0b8bf3241efe6c8419360864743e1ad42b59258df374ca6e1a7405",
+    "examples/scenarios.md": "503266763765bf1db26ad8012159d06e4e26f7c0be252b9c344029db7e9535d0",
+    "licenses/Compass-LICENSE-GUIDE.md": "09d6c83347a43560fbdd271a1ce18a828e7e0f578bf9b2f12caf44093a5ff32e",
+    "licenses/Compass-MIT.txt": "9c8fdd8ed31d0a0281cbd113e2e48fc3f6bf090ea513b601ba6dd8aa68bcabb6",
+    "references/adaptation.md": "0f63ae2b815fe47ac6bc7386f9a3014c1ca70c0c8901f7f036ae50aacf7761a0",
+    "references/planning.md": "5ac3f3f83ada6410374903142c0cfff7fd47e0ba01cf91892982265f2c1860de",
+    "references/provenance.md": "ebfc78440fbf277c76c43e2bd60f28b96be4997fc5c2da76da9739e3b8c69831",
+    "references/state.md": "85dc2983577a8a312d1992e331e31428309b0bdafe1153f4f26615caac0d1ff0",
+    "scripts/planning_state.py": "ece89b7993d7e5eab2adf4a01326777987ec515bb9dcf89b9c718c3d2c8c4bf3",
+    "state.schema.json": "c747fadaf92bdeb58c38149c8dde9a8460d9729d4d70fec6bb1e158d5db35d11",
+    "templates/state.json": "867007e23c07d9273520237622a3a1c65f2eab9aff39388928764ece06b0ef6d",
+    "validation/baseline-responses.md": "d11ed2a1450a479f6108cb65ab9bdbfd59509d9f1d61ca9972157036caf8acc8",
+    "validation/candidate-responses.md": "a2f33e096de61cb34d4e8c1a2e7bdc1a80f1b33b345f029c80b7075fea462de0",
+    "validation/cases.json": "0cbb37fe815e9a8d5671f6544fae86e0d9e6771e676cafd9405315de6124ee13",
+    "validation/evidence-hashes.json": "f28310f2e501658bf52bcb117355b475ac0174dd02d2c48a78d521a825584510",
+    "validation/executor-notes.md": "a3400759e7ea8c30973f54848bd7197781560d0955d405b670abd2960a0b7744",
+    "validation/fresh-continuity-response.md": "ae3b09202ceea310879bb3dd510ee83d0a1d4b0c2fdcc5ce2345337263377b74",
+    "validation/initial-state-check.json": "70290e67ccc42e4583b169b176a76109a391449624fa93d500dd38cc97b302a0",
+    "validation/monthly-response.md": "020fb612a35cdaeb79ed4fbbb78364b5b0429e69dca7005386a863aeeac652ec",
+    "validation/report.md": "1d9f8c6ac09af3259c8300db7a7d8cf718db205d2659d8a59663a42c022263a8",
+    "validation/resource-review.md": "9c998f9d56037634c766e96d5cbede6ce39b4e8f60c9d4f029fb046c4c59df95",
+    "validation/resume-state-check.json": "219ab67dfebfb4d7325bd3c65ca57f27ce9d2333fbd51e19f59349df6f399adf",
+    "validation/test_examples.py": "acfc9c4fe6e10d90e55bcc5efb0aa13132907bcb0445a99826617ad04017efda",
+    "validation/test_state.py": "7fcc72d247a6f184aefb38908922db76da472a4ab88a3ca95dcef6f9c5a242a7",
+    "validation/utility-results.txt": "f81bec469f1d4e05a5e3455fd6dbf0a5af56bea3668332a1123d447c5180fe78"
+  },
+  "excludes": [
+    "validation/manifest.json"
+  ]
+}

@@ -1,0 +1,607 @@
+{
+  "schema_version": 1,
+  "plan_id": "synthetic-initial-week",
+  "revision": 0,
+  "updated_at": "2026-11-02T07:00:00-07:00",
+  "profile": {
+    "timezone": "America/Denver",
+    "week_start": 0,
+    "sleep": {
+      "start": "23:00",
+      "end": "07:00"
+    }
+  },
+  "tasks": [
+    {
+      "id": "paper",
+      "title": "Paper",
+      "remaining_minutes": 360,
+      "deadline": "2026-11-06T17:00:00-07:00",
+      "preferred_date": null,
+      "priority": "high",
+      "required": true,
+      "flexible": true,
+      "dependencies": [],
+      "min_session_minutes": 30,
+      "recurrence": null
+    },
+    {
+      "id": "lift",
+      "title": "Lifting",
+      "remaining_minutes": null,
+      "deadline": null,
+      "preferred_date": null,
+      "priority": "medium",
+      "required": false,
+      "flexible": true,
+      "dependencies": [],
+      "min_session_minutes": 30,
+      "recurrence": {
+        "frequency": "weekly",
+        "count": 3,
+        "minutes": 60
+      }
+    },
+    {
+      "id": "reading",
+      "title": "Reading",
+      "remaining_minutes": null,
+      "deadline": null,
+      "preferred_date": null,
+      "priority": "medium",
+      "required": false,
+      "flexible": true,
+      "dependencies": [],
+      "min_session_minutes": 30,
+      "recurrence": {
+        "frequency": "daily",
+        "count": 1,
+        "minutes": 30
+      }
+    },
+    {
+      "id": "laundry",
+      "title": "Laundry",
+      "remaining_minutes": null,
+      "deadline": null,
+      "preferred_date": null,
+      "priority": "medium",
+      "required": false,
+      "flexible": true,
+      "dependencies": [],
+      "min_session_minutes": 30,
+      "recurrence": {
+        "frequency": "weekly",
+        "count": 1,
+        "minutes": 120
+      }
+    }
+  ],
+  "occurrences": [
+    {
+      "id": "lift@weekly:2026-11-02#1",
+      "task_id": "lift",
+      "period_start": "2026-11-02",
+      "period_end": "2026-11-09",
+      "remaining_minutes": 60
+    },
+    {
+      "id": "lift@weekly:2026-11-02#2",
+      "task_id": "lift",
+      "period_start": "2026-11-02",
+      "period_end": "2026-11-09",
+      "remaining_minutes": 60
+    },
+    {
+      "id": "lift@weekly:2026-11-02#3",
+      "task_id": "lift",
+      "period_start": "2026-11-02",
+      "period_end": "2026-11-09",
+      "remaining_minutes": 60
+    },
+    {
+      "id": "laundry@weekly:2026-11-02#1",
+      "task_id": "laundry",
+      "period_start": "2026-11-02",
+      "period_end": "2026-11-09",
+      "remaining_minutes": 120
+    },
+    {
+      "id": "reading@daily:2026-11-02#1",
+      "task_id": "reading",
+      "period_start": "2026-11-02",
+      "period_end": "2026-11-03",
+      "remaining_minutes": 30
+    },
+    {
+      "id": "reading@daily:2026-11-03#1",
+      "task_id": "reading",
+      "period_start": "2026-11-03",
+      "period_end": "2026-11-04",
+      "remaining_minutes": 30
+    },
+    {
+      "id": "reading@daily:2026-11-04#1",
+      "task_id": "reading",
+      "period_start": "2026-11-04",
+      "period_end": "2026-11-05",
+      "remaining_minutes": 30
+    },
+    {
+      "id": "reading@daily:2026-11-05#1",
+      "task_id": "reading",
+      "period_start": "2026-11-05",
+      "period_end": "2026-11-06",
+      "remaining_minutes": 30
+    },
+    {
+      "id": "reading@daily:2026-11-06#1",
+      "task_id": "reading",
+      "period_start": "2026-11-06",
+      "period_end": "2026-11-07",
+      "remaining_minutes": 30
+    },
+    {
+      "id": "reading@daily:2026-11-07#1",
+      "task_id": "reading",
+      "period_start": "2026-11-07",
+      "period_end": "2026-11-08",
+      "remaining_minutes": 30
+    },
+    {
+      "id": "reading@daily:2026-11-08#1",
+      "task_id": "reading",
+      "period_start": "2026-11-08",
+      "period_end": "2026-11-09",
+      "remaining_minutes": 30
+    }
+  ],
+  "fixed_events": [
+    {
+      "id": "class-2",
+      "title": "class-2",
+      "kind": "fixed",
+      "start": "2026-11-02T09:00:00-07:00",
+      "end": "2026-11-02T12:00:00-07:00"
+    },
+    {
+      "id": "class-pre-2",
+      "title": "class-pre-2",
+      "kind": "transition",
+      "start": "2026-11-02T08:45:00-07:00",
+      "end": "2026-11-02T09:00:00-07:00"
+    },
+    {
+      "id": "class-post-2",
+      "title": "class-post-2",
+      "kind": "transition",
+      "start": "2026-11-02T12:00:00-07:00",
+      "end": "2026-11-02T12:15:00-07:00"
+    },
+    {
+      "id": "lift-pre-2",
+      "title": "lift-pre-2",
+      "kind": "transition",
+      "start": "2026-11-02T15:45:00-07:00",
+      "end": "2026-11-02T16:00:00-07:00"
+    },
+    {
+      "id": "lift-post-2",
+      "title": "lift-post-2",
+      "kind": "transition",
+      "start": "2026-11-02T17:00:00-07:00",
+      "end": "2026-11-02T17:15:00-07:00"
+    },
+    {
+      "id": "class-4",
+      "title": "class-4",
+      "kind": "fixed",
+      "start": "2026-11-04T09:00:00-07:00",
+      "end": "2026-11-04T12:00:00-07:00"
+    },
+    {
+      "id": "class-pre-4",
+      "title": "class-pre-4",
+      "kind": "transition",
+      "start": "2026-11-04T08:45:00-07:00",
+      "end": "2026-11-04T09:00:00-07:00"
+    },
+    {
+      "id": "class-post-4",
+      "title": "class-post-4",
+      "kind": "transition",
+      "start": "2026-11-04T12:00:00-07:00",
+      "end": "2026-11-04T12:15:00-07:00"
+    },
+    {
+      "id": "lift-pre-4",
+      "title": "lift-pre-4",
+      "kind": "transition",
+      "start": "2026-11-04T15:45:00-07:00",
+      "end": "2026-11-04T16:00:00-07:00"
+    },
+    {
+      "id": "lift-post-4",
+      "title": "lift-post-4",
+      "kind": "transition",
+      "start": "2026-11-04T17:00:00-07:00",
+      "end": "2026-11-04T17:15:00-07:00"
+    },
+    {
+      "id": "class-6",
+      "title": "class-6",
+      "kind": "fixed",
+      "start": "2026-11-06T09:00:00-07:00",
+      "end": "2026-11-06T12:00:00-07:00"
+    },
+    {
+      "id": "class-pre-6",
+      "title": "class-pre-6",
+      "kind": "transition",
+      "start": "2026-11-06T08:45:00-07:00",
+      "end": "2026-11-06T09:00:00-07:00"
+    },
+    {
+      "id": "class-post-6",
+      "title": "class-post-6",
+      "kind": "transition",
+      "start": "2026-11-06T12:00:00-07:00",
+      "end": "2026-11-06T12:15:00-07:00"
+    },
+    {
+      "id": "lift-pre-6",
+      "title": "lift-pre-6",
+      "kind": "transition",
+      "start": "2026-11-06T15:45:00-07:00",
+      "end": "2026-11-06T16:00:00-07:00"
+    },
+    {
+      "id": "lift-post-6",
+      "title": "lift-post-6",
+      "kind": "transition",
+      "start": "2026-11-06T17:00:00-07:00",
+      "end": "2026-11-06T17:15:00-07:00"
+    },
+    {
+      "id": "breakfast-2",
+      "title": "breakfast-2",
+      "kind": "meal",
+      "start": "2026-11-02T08:00:00-07:00",
+      "end": "2026-11-02T08:30:00-07:00"
+    },
+    {
+      "id": "lunch-2",
+      "title": "lunch-2",
+      "kind": "meal",
+      "start": "2026-11-02T12:15:00-07:00",
+      "end": "2026-11-02T13:15:00-07:00"
+    },
+    {
+      "id": "dinner-2",
+      "title": "dinner-2",
+      "kind": "meal",
+      "start": "2026-11-02T18:00:00-07:00",
+      "end": "2026-11-02T19:00:00-07:00"
+    },
+    {
+      "id": "free-2",
+      "title": "free-2",
+      "kind": "protected",
+      "start": "2026-11-02T21:00:00-07:00",
+      "end": "2026-11-02T22:30:00-07:00"
+    },
+    {
+      "id": "breakfast-3",
+      "title": "breakfast-3",
+      "kind": "meal",
+      "start": "2026-11-03T08:00:00-07:00",
+      "end": "2026-11-03T08:30:00-07:00"
+    },
+    {
+      "id": "lunch-3",
+      "title": "lunch-3",
+      "kind": "meal",
+      "start": "2026-11-03T12:00:00-07:00",
+      "end": "2026-11-03T13:00:00-07:00"
+    },
+    {
+      "id": "dinner-3",
+      "title": "dinner-3",
+      "kind": "meal",
+      "start": "2026-11-03T18:00:00-07:00",
+      "end": "2026-11-03T19:00:00-07:00"
+    },
+    {
+      "id": "free-3",
+      "title": "free-3",
+      "kind": "protected",
+      "start": "2026-11-03T21:00:00-07:00",
+      "end": "2026-11-03T22:30:00-07:00"
+    },
+    {
+      "id": "breakfast-4",
+      "title": "breakfast-4",
+      "kind": "meal",
+      "start": "2026-11-04T08:00:00-07:00",
+      "end": "2026-11-04T08:30:00-07:00"
+    },
+    {
+      "id": "lunch-4",
+      "title": "lunch-4",
+      "kind": "meal",
+      "start": "2026-11-04T12:15:00-07:00",
+      "end": "2026-11-04T13:15:00-07:00"
+    },
+    {
+      "id": "dinner-4",
+      "title": "dinner-4",
+      "kind": "meal",
+      "start": "2026-11-04T18:00:00-07:00",
+      "end": "2026-11-04T19:00:00-07:00"
+    },
+    {
+      "id": "free-4",
+      "title": "free-4",
+      "kind": "protected",
+      "start": "2026-11-04T21:00:00-07:00",
+      "end": "2026-11-04T22:30:00-07:00"
+    },
+    {
+      "id": "breakfast-5",
+      "title": "breakfast-5",
+      "kind": "meal",
+      "start": "2026-11-05T08:00:00-07:00",
+      "end": "2026-11-05T08:30:00-07:00"
+    },
+    {
+      "id": "lunch-5",
+      "title": "lunch-5",
+      "kind": "meal",
+      "start": "2026-11-05T12:00:00-07:00",
+      "end": "2026-11-05T13:00:00-07:00"
+    },
+    {
+      "id": "dinner-5",
+      "title": "dinner-5",
+      "kind": "meal",
+      "start": "2026-11-05T18:00:00-07:00",
+      "end": "2026-11-05T19:00:00-07:00"
+    },
+    {
+      "id": "free-5",
+      "title": "free-5",
+      "kind": "protected",
+      "start": "2026-11-05T21:00:00-07:00",
+      "end": "2026-11-05T22:30:00-07:00"
+    },
+    {
+      "id": "breakfast-6",
+      "title": "breakfast-6",
+      "kind": "meal",
+      "start": "2026-11-06T08:00:00-07:00",
+      "end": "2026-11-06T08:30:00-07:00"
+    },
+    {
+      "id": "lunch-6",
+      "title": "lunch-6",
+      "kind": "meal",
+      "start": "2026-11-06T12:15:00-07:00",
+      "end": "2026-11-06T13:15:00-07:00"
+    },
+    {
+      "id": "dinner-6",
+      "title": "dinner-6",
+      "kind": "meal",
+      "start": "2026-11-06T18:00:00-07:00",
+      "end": "2026-11-06T19:00:00-07:00"
+    },
+    {
+      "id": "free-6",
+      "title": "free-6",
+      "kind": "protected",
+      "start": "2026-11-06T21:00:00-07:00",
+      "end": "2026-11-06T22:30:00-07:00"
+    },
+    {
+      "id": "breakfast-7",
+      "title": "breakfast-7",
+      "kind": "meal",
+      "start": "2026-11-07T08:00:00-07:00",
+      "end": "2026-11-07T08:30:00-07:00"
+    },
+    {
+      "id": "lunch-7",
+      "title": "lunch-7",
+      "kind": "meal",
+      "start": "2026-11-07T12:00:00-07:00",
+      "end": "2026-11-07T13:00:00-07:00"
+    },
+    {
+      "id": "dinner-7",
+      "title": "dinner-7",
+      "kind": "meal",
+      "start": "2026-11-07T18:00:00-07:00",
+      "end": "2026-11-07T19:00:00-07:00"
+    },
+    {
+      "id": "free-7",
+      "title": "free-7",
+      "kind": "protected",
+      "start": "2026-11-07T21:00:00-07:00",
+      "end": "2026-11-07T22:30:00-07:00"
+    },
+    {
+      "id": "breakfast-8",
+      "title": "breakfast-8",
+      "kind": "meal",
+      "start": "2026-11-08T08:00:00-07:00",
+      "end": "2026-11-08T08:30:00-07:00"
+    },
+    {
+      "id": "lunch-8",
+      "title": "lunch-8",
+      "kind": "meal",
+      "start": "2026-11-08T12:00:00-07:00",
+      "end": "2026-11-08T13:00:00-07:00"
+    },
+    {
+      "id": "dinner-8",
+      "title": "dinner-8",
+      "kind": "meal",
+      "start": "2026-11-08T18:00:00-07:00",
+      "end": "2026-11-08T19:00:00-07:00"
+    },
+    {
+      "id": "free-8",
+      "title": "free-8",
+      "kind": "protected",
+      "start": "2026-11-08T21:00:00-07:00",
+      "end": "2026-11-08T22:30:00-07:00"
+    }
+  ],
+  "model_week": [],
+  "dated_plan": {
+    "start": "2026-11-02",
+    "end": "2026-11-09",
+    "blocks": [
+      {
+        "id": "P1",
+        "task_id": "paper",
+        "occurrence_id": null,
+        "start": "2026-11-02T13:15:00-07:00",
+        "end": "2026-11-02T15:15:00-07:00",
+        "status": "planned"
+      },
+      {
+        "id": "P2",
+        "task_id": "paper",
+        "occurrence_id": null,
+        "start": "2026-11-03T13:00:00-07:00",
+        "end": "2026-11-03T15:00:00-07:00",
+        "status": "planned"
+      },
+      {
+        "id": "P3",
+        "task_id": "paper",
+        "occurrence_id": null,
+        "start": "2026-11-05T13:00:00-07:00",
+        "end": "2026-11-05T15:00:00-07:00",
+        "status": "planned"
+      },
+      {
+        "id": "L1",
+        "task_id": "lift",
+        "occurrence_id": "lift@weekly:2026-11-02#1",
+        "start": "2026-11-02T16:00:00-07:00",
+        "end": "2026-11-02T17:00:00-07:00",
+        "status": "planned"
+      },
+      {
+        "id": "L2",
+        "task_id": "lift",
+        "occurrence_id": "lift@weekly:2026-11-02#2",
+        "start": "2026-11-04T16:00:00-07:00",
+        "end": "2026-11-04T17:00:00-07:00",
+        "status": "planned"
+      },
+      {
+        "id": "L3",
+        "task_id": "lift",
+        "occurrence_id": "lift@weekly:2026-11-02#3",
+        "start": "2026-11-06T16:00:00-07:00",
+        "end": "2026-11-06T17:00:00-07:00",
+        "status": "planned"
+      },
+      {
+        "id": "A1",
+        "task_id": "laundry",
+        "occurrence_id": "laundry@weekly:2026-11-02#1",
+        "start": "2026-11-08T14:00:00-07:00",
+        "end": "2026-11-08T16:00:00-07:00",
+        "status": "planned"
+      },
+      {
+        "id": "R2",
+        "task_id": "reading",
+        "occurrence_id": "reading@daily:2026-11-02#1",
+        "start": "2026-11-02T20:30:00-07:00",
+        "end": "2026-11-02T21:00:00-07:00",
+        "status": "planned"
+      },
+      {
+        "id": "R3",
+        "task_id": "reading",
+        "occurrence_id": "reading@daily:2026-11-03#1",
+        "start": "2026-11-03T20:30:00-07:00",
+        "end": "2026-11-03T21:00:00-07:00",
+        "status": "planned"
+      },
+      {
+        "id": "R4",
+        "task_id": "reading",
+        "occurrence_id": "reading@daily:2026-11-04#1",
+        "start": "2026-11-04T20:30:00-07:00",
+        "end": "2026-11-04T21:00:00-07:00",
+        "status": "planned"
+      },
+      {
+        "id": "R5",
+        "task_id": "reading",
+        "occurrence_id": "reading@daily:2026-11-05#1",
+        "start": "2026-11-05T20:30:00-07:00",
+        "end": "2026-11-05T21:00:00-07:00",
+        "status": "planned"
+      },
+      {
+        "id": "R6",
+        "task_id": "reading",
+        "occurrence_id": "reading@daily:2026-11-06#1",
+        "start": "2026-11-06T20:30:00-07:00",
+        "end": "2026-11-06T21:00:00-07:00",
+        "status": "planned"
+      },
+      {
+        "id": "R7",
+        "task_id": "reading",
+        "occurrence_id": "reading@daily:2026-11-07#1",
+        "start": "2026-11-07T20:30:00-07:00",
+        "end": "2026-11-07T21:00:00-07:00",
+        "status": "planned"
+      },
+      {
+        "id": "R8",
+        "task_id": "reading",
+        "occurrence_id": "reading@daily:2026-11-08#1",
+        "start": "2026-11-08T20:30:00-07:00",
+        "end": "2026-11-08T21:00:00-07:00",
+        "status": "planned"
+      }
+    ],
+    "unscheduled": []
+  },
+  "progress": [],
+  "feedback": [],
+  "adaptations": [],
+  "applied_updates": [],
+  "extensions": {
+    "synthetic": true,
+    "availability": "Provisional candidate windows outside listed constraints; user has not confirmed no other commitments",
+    "capacity_minutes": {
+      "waking": 6720,
+      "classes": 540,
+      "meals": 1050,
+      "transitions": 180,
+      "desired_free": 630,
+      "candidate": 4320,
+      "buffer": 864,
+      "usable": 3456,
+      "allocated": 870,
+      "unallocated_usable": 2586
+    },
+    "buffer_method": "20 percent of candidate time; not a personal preference",
+    "assumptions": [
+      "Meals/transition/free windows are illustrative estimates",
+      "No precise long-range month appointments implied"
+    ]
+  }
+}
