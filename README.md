@@ -57,6 +57,8 @@ python3 adaptive-planning/scripts/planning_state.py check adaptive-planning/exam
 
 Tests use synthetic data only. The CI workflow runs the deterministic suite and package integrity checks. Model-response examples are recorded evidence, not a guarantee that every assistant will behave identically.
 
+Public release/install/discovery checks: [Release verification](VERIFICATION.md).
+
 ## License and attribution
 
 [MIT](LICENSE) covers original code/resources. The Compass-derived `adaptive-planning/SKILL.md` and `adaptive-planning/references/planning.md` retain **CC BY 4.0**, with required attribution and notices. This is a mixed-license repository; see [NOTICE](NOTICE.md) and [full provenance](adaptive-planning/references/provenance.md). No Compass plugins are bundled.
