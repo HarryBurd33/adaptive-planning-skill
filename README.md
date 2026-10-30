@@ -59,6 +59,10 @@ Tests use synthetic data only. The CI workflow runs the deterministic suite and 
 
 Public release/install/discovery checks: [Release verification](VERIFICATION.md).
 
+## Updates and remaining work
+
+See the dated [update audit](UPDATE_AUDIT.md) for installed/repository parity and current verification, and the prioritized [roadmap](ROADMAP.md) for remaining limitations, concrete next steps and acceptance gates. These are plans, not promises of unimplemented features.
+
 ## License and attribution
 
 [MIT](LICENSE) covers original code/resources. The Compass-derived `adaptive-planning/SKILL.md` and `adaptive-planning/references/planning.md` retain **CC BY 4.0**, with required attribution and notices. This is a mixed-license repository; see [NOTICE](NOTICE.md) and [full provenance](adaptive-planning/references/provenance.md). No Compass plugins are bundled.
