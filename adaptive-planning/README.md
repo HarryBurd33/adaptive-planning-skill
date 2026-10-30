@@ -13,3 +13,5 @@ Start with your planning horizon/timezone, hard commitments, protected sleep, ta
 See [synthetic scenarios](examples/scenarios.md), [provenance and licensing](references/provenance.md), and [validation results](validation/report.md). Validation distinguishes authored illustrations, executed utility checks, static structure and real model responses; it does not prove long-term personal outcomes.
 
 License: original code/resources are MIT. The Compass-derived `SKILL.md` and `references/planning.md` retain CC BY 4.0. See [NOTICE](NOTICE.md) for exact scope.
+
+Version0.2.0: [explicit capacity and canonical views](references/capacity.md), version2 opt-in constraints, and `--as-of` elapsed-history checks. Version1 state stays readable; no personal migration runs during installation.

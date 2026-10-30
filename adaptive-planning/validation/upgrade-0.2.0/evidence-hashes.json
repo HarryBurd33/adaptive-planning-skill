@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "behavior_files": {
+    "SKILL.md": "50dfe3e830bcc7623d19a5f2db67c6dbc2f73b48b4ce01cb63969aaf2660c506",
+    "references/adaptation.md": "0f63ae2b815fe47ac6bc7386f9a3014c1ca70c0c8901f7f036ae50aacf7761a0",
+    "references/capacity.md": "f082e0d154b903da8b2eb06c220be7d24c196ea6b0c7cb8c50bb1054c4c2dfa8",
+    "references/planning.md": "caeafd5a05a7805f81b4a271c89559ec8f9092cd0332253c92906acec82f7eea",
+    "references/provenance.md": "b2eb88d0f41dec1d944b4c93a5a64e83b18f0aeb748595477929860e82e4c821",
+    "references/state.md": "2fb614dacd7f7fb26fadaab171bbb36b95b789c6664b11af6a4e9d4c0ebbcf2b",
+    "scripts/planning_capacity.py": "397c50e4f2566eb2be4976d8f077913bcfe67d1c17f7eeac686a6d1c2c73ee8a",
+    "scripts/planning_state.py": "8646e8fb6cc7232b2f65348179f5cddd93637abbff69ab6e00deb3d950ae891f",
+    "state.schema.json": "246449edea0cf64ab8ca91cdbdde8c2247a0f2033745d3dc22b63a81b72c3726",
+    "templates/handoff.md": "174ba64884b239671394582cd6b9ab94b36a55571acbd0dd9b3d76fd91bbd65c",
+    "templates/state.json": "867007e23c07d9273520237622a3a1c65f2eab9aff39388928764ece06b0ef6d"
+  },
+  "criteria_sha256": "0be86fcb568119f5602fb53bf55cf6a6bfd7aa1ef4e9fcf1ef5daeac30f0e6a7",
+  "assignment": "gpt-6.1-sol/medium requested for both executors; executing identity uninstrumented",
+  "review": "independent resource probes plus parent frozen-criteria integration review"
+}

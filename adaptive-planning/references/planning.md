@@ -38,3 +38,5 @@ Before showing a view, reconcile totals with the canonical dated plan and progre
 ## Minimal useful questions
 
 Ask about a missing deadline time when Friday morning versus Friday night changes the answer. Ask which overlapping hard event can change. Ask for a scope/deadline/priority decision when required work exceeds usable capacity. Otherwise continue with visible, reversible estimates. Do not ask for an entire personal profile before helping with one displaced session.
+
+With explicit version2 availability, use [the capacity utility](capacity.md) to audit arithmetic and derive canonical views. Its task capacities are shared upper bounds, not independent slots or proof of a jointly feasible placement.

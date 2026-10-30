@@ -1,3 +1,5 @@
+Historical pre-upgrade audit. Version 0.2.0 implementation and evidence are now described in [CHANGELOG.md](CHANGELOG.md) and the [current validation report](adaptive-planning/validation/report.md).
+
 # Update audit — 2026-10-30
 
 Scope confirmed by the user: adaptive-planning plus the Codex desktop app and CLI. Other installed skills/plugins were not included. Observations are a dated snapshot, not an automatic update guarantee.

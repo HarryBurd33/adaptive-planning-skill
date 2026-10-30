@@ -26,3 +26,5 @@ Compass credits Cal Newport for multi-scale planning, Mike Schmitz's public Prac
 ## Bounded foundation search
 
 Skill Finder used the connected GitHub reader and targeted primary web search. Query: `site:github.com adaptive planning agent skill schedule feedback deadlines SKILL.md`. One additional candidate, `magnus919/agent-skills/technical-project-management/SKILL.md`, was read (blob `21e77a8e65ab7e25db16935ff94e8b8b3e73bb74`). It targets team delivery; its root license returned 404 and immutable commit was not verified. Rejected for reuse; nothing copied. Hugging Face was skipped because no model, dataset or hosted Space was needed. This was a bounded fit review, not an exhaustive search. No downloaded code was executed.
+
+Version0.2.0 (2026-10-30) adds original capacity/state checking code, version2 opt-in constraints, as-of preservation, and concise handoff guidance. Guide-derived SKILL.md/planning prose remains CC BY4.0 with the same attribution; original code/resources remain MIT. No additional Compass files or plugins were imported.

@@ -1,0 +1,54 @@
+{
+  "model-overlap": {
+    "baseline": {
+      "exit": 0,
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    "candidate": {
+      "exit": 2,
+      "valid": false,
+      "errors": [
+        "model_week: overlap entries 0 and 1"
+      ],
+      "warnings": []
+    }
+  },
+  "partial-dependency": {
+    "baseline": {
+      "exit": 0,
+      "valid": true,
+      "errors": [],
+      "warnings": [
+        "A: 60.0 minutes unallocated (required)"
+      ]
+    },
+    "candidate": {
+      "exit": 2,
+      "valid": false,
+      "errors": [
+        "B: scheduled before dependency A full remaining effort finishes"
+      ],
+      "warnings": [
+        "A: 60.0 minutes unallocated (required)"
+      ]
+    }
+  },
+  "reservation-union": {
+    "baseline": {
+      "exit": 2,
+      "valid": false,
+      "errors": [
+        "protect1: overlaps protect2"
+      ],
+      "warnings": []
+    },
+    "candidate": {
+      "exit": 0,
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    }
+  }
+}

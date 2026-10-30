@@ -1,6 +1,18 @@
 # Adaptive Planning roadmap
 
-Audit date: 2026-10-30 (America/Denver). This is a prioritized implementation and verification plan, not a claim that the proposed features are delivered. Current released skill: 0.1.0. Basic conversational planning already works; the optional helper checks a documented subset of constraints.
+Audit date: 2026-10-30 (America/Denver). This is a prioritized implementation and verification plan, not a claim that the proposed features are delivered. Historical pre-implementation release: 0.1.0; current technical release: 0.2.0. Basic conversational planning already works; the optional helper checks a documented subset of constraints.
+
+## Version 0.2.0 implementation status
+
+The technical release implements the scheduling/state/capacity/schema/handoff work below. A standalone checkout was created outside the shared task root through the approved filesystem boundary; the native chat root was not changed. The repository code and branch now live in that independent checkout, while the original task checkpoint is reused. Native workspace attachment remains an optional host UI step, not a claim made by the shell working directory.
+
+- Step 2a: implemented circular overlap checks and full/transitive prerequisite readiness, with regressions.
+- Step 2b: implemented explicit capacity bounds, version-2 sleep overrides, deterministic as-of preservation, canonical data views, and a pinned independent schema check. The helper remains a bound/checker, not a joint placement optimizer or prose reviewer.
+- Step 3: completed one separate-context matched baseline/candidate round and independent resource review. Executing identity is not independently instrumented; no general superiority claim is made.
+- Step 4: added concise handoff guidance/template and tested continuity. A consented real-person longitudinal trial remains pending actual use and feedback.
+- Step 5: optional integrations remain unimplemented and require a real connector/scheduler and separate authorization.
+
+See [the current validation report](adaptive-planning/validation/report.md) and [CHANGELOG.md](CHANGELOG.md). The sections below retain the original plan and acceptance gates for traceability; they must not be read as claiming every future optional feature is shipped.
 
 ## 1. Establish a safe maintenance workspace (P0; prerequisite for code changes)
 
@@ -62,4 +74,4 @@ A real weekly plan requires the user's sleep/wake preferences, fixed commitments
 
 ## Release gate for any behavior change
 
-Freeze scope and regressions, preserve prior files/state, implement in the verified workspace, run deterministic checks plus relevant actual model examples, reconcile independent findings, refresh evidence hashes/manifests and matching ZIP, bump the skill version, publish to the authorized repository, update only an unmodified global copy, and verify native discovery and exact installed/published parity. A passing process exit or confidence is not sufficient evidence. Keep current0.1.0 active until a candidate meets its gate.
+Freeze scope and regressions, preserve prior files/state, implement in the verified workspace, run deterministic checks plus relevant actual model examples, reconcile independent findings, refresh evidence hashes/manifests and matching ZIP, bump the skill version, publish to the authorized repository, update only an unmodified global copy, and verify native discovery and exact installed/published parity. A passing process exit or confidence is not sufficient evidence. Version 0.1.0 remains the rollback baseline; version 0.2.0 is adopted only after the documented gate passes.

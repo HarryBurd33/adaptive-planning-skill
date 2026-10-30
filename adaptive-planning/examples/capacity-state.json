@@ -1,0 +1,54 @@
+{
+  "schema_version": 2,
+  "plan_id": "synthetic-capacity-example",
+  "revision": 0,
+  "updated_at": "2026-11-02T07:00:00-07:00",
+  "profile": {
+    "timezone": "America/Denver",
+    "week_start": 0,
+    "sleep": {
+      "start": "23:00",
+      "end": "07:00"
+    }
+  },
+  "tasks": [
+    {
+      "id": "work",
+      "title": "Required work",
+      "remaining_minutes": 480,
+      "deadline": null,
+      "preferred_date": null,
+      "priority": "high",
+      "required": true,
+      "flexible": true,
+      "dependencies": [],
+      "min_session_minutes": 30,
+      "recurrence": null
+    }
+  ],
+  "occurrences": [],
+  "fixed_events": [],
+  "model_week": [],
+  "dated_plan": {
+    "start": "2026-11-02",
+    "end": "2026-11-09",
+    "blocks": [],
+    "unscheduled": []
+  },
+  "progress": [],
+  "feedback": [],
+  "adaptations": [],
+  "applied_updates": [],
+  "extensions": {
+    "constraints_v2": {
+      "availability": [
+        {
+          "start": "2026-11-02T08:00:00-07:00",
+          "end": "2026-11-02T13:00:00-07:00"
+        }
+      ],
+      "buffer_percent": 20
+    },
+    "synthetic": true
+  }
+}

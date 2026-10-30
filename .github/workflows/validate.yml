@@ -19,3 +19,13 @@ jobs:
         run: python -m unittest discover -s adaptive-planning/validation -p 'test_*.py' -v
       - name: Validate release integrity
         run: python scripts/validate_release.py
+
+  full-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.1.0
+        with:
+          python-version: '3.13'
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python scripts/validate_schema.py

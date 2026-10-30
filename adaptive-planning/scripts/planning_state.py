@@ -6,6 +6,8 @@ import copy
 import hashlib
 import json
 import os
+import math
+import re
 from pathlib import Path
 import sys
 import tempfile
@@ -38,7 +40,8 @@ def structural(value, rule, path='$'):
     if isinstance(types, str): types = [types]
     ok = {'object': isinstance(value, dict), 'array': isinstance(value, list),
           'string': isinstance(value, str), 'integer': type(value) is int,
-          'boolean': type(value) is bool, 'null': value is None}
+          'boolean': type(value) is bool, 'null': value is None,
+          'number': type(value) in (int, float) and math.isfinite(value)}
     if types and not any(ok.get(t, False) for t in types):
         return [path + ': wrong type']
     if 'enum' in rule and value not in rule['enum']: errors.append(path + ': invalid value')
@@ -49,12 +52,15 @@ def structural(value, rule, path='$'):
         for k, v in value.items():
             if k in props: errors += structural(v, props[k], path + '.' + k)
             elif rule.get('additionalProperties') is False: errors.append(path + ': unknown field ' + k)
+            elif isinstance(rule.get('additionalProperties'), dict): errors += structural(v, rule['additionalProperties'], path + '.' + k)
     if isinstance(value, list):
+        if len(value) < rule.get('minItems', 0): errors.append(path + ': too few items')
         for i, v in enumerate(value): errors += structural(v, rule.get('items', {}), path + '[' + str(i) + ']')
-    if type(value) is int and value < rule.get('minimum', value): errors.append(path + ': below minimum')
-    if type(value) is int and value > rule.get('maximum', value): errors.append(path + ': above maximum')
+    if type(value) in (int, float) and value < rule.get('minimum', value): errors.append(path + ': below minimum')
+    if type(value) in (int, float) and value > rule.get('maximum', value): errors.append(path + ': above maximum')
     if isinstance(value, str):
         if len(value) < rule.get('minLength', 0): errors.append(path + ': empty value')
+        if 'pattern' in rule and re.search(rule['pattern'], value) is None: errors.append(path + ': invalid pattern')
         fmt = rule.get('format')
         try:
             if fmt == 'date': date.fromisoformat(value)
@@ -75,16 +81,64 @@ def period(day, frequency, week_start):
     return first, (first.replace(year=first.year+1, month=1) if first.month == 12 else first.replace(month=first.month+1))
 
 
-def check(state):
-    errors = structural(state, load(SCHEMA)); warnings = []; totals = {}; outside_horizon = {}
-    if errors: return {'valid': False, 'errors': errors, 'warnings': warnings, 'totals': totals, 'outside_horizon': outside_horizon}
+def sleep_intervals(state, start_day, end_day):
+    """UTC protected windows by local start-date anchor, [start_day, end_day)."""
+    constraints = state['extensions'].get('constraints_v2', {})
+    problems = structural(constraints, load(SCHEMA)['properties']['extensions']['properties']['constraints_v2'])
+    if problems: raise ValueError('; '.join(problems))
+    if constraints and state['schema_version'] != 2: raise ValueError('constraints_v2 requires schema_version 2')
+    zone = ZoneInfo(state['profile']['timezone'])
+    normal = state['profile']['sleep']
+    overrides = state['extensions'].get('constraints_v2', {}).get('sleep_exceptions', {})
+    validated = {}
+    for anchor, windows in overrides.items():
+        day = date.fromisoformat(anchor)
+        if day.isoformat() != anchor or not windows: raise ValueError('sleep exception requires ISO anchor and nonempty windows')
+        validated[day] = []
+        for window in windows:
+            a, b = stamp(window['start'], zone), stamp(window['end'], zone)
+            if a.date() != day: raise ValueError('sleep exception start must match anchor date')
+            au, bu = a.astimezone(UTC), b.astimezone(UTC)
+            if bu <= au: raise ValueError('sleep exception end must follow start')
+            validated[day].append((au, bu))
+    if normal and normal['start'] == normal['end']: raise ValueError('sleep window cannot have equal endpoints')
+    if isinstance(start_day, str): start_day = date.fromisoformat(start_day)
+    if isinstance(end_day, str): end_day = date.fromisoformat(end_day)
+    result = []
+    day = start_day
+    while day < end_day:
+        if day in validated: result.extend(validated[day])
+        elif normal:
+            a = datetime.combine(day, time.fromisoformat(normal['start']), zone)
+            end = day + timedelta(days=normal['end'] < normal['start'])
+            b = datetime.combine(end, time.fromisoformat(normal['end']), zone)
+            # Reject imaginary local normal windows instead of silently changing protection.
+            stamp(a.isoformat(), zone); stamp(b.isoformat(), zone)
+            result.append((a.astimezone(UTC), b.astimezone(UTC)))
+        day += timedelta(days=1)
+    return sorted(result)
+
+
+def check(state, as_of=None):
+    errors = structural(state, load(SCHEMA)); warnings = []; totals = {}; outside_horizon = {}; dependency_readiness = {}
+    try: as_of = stamp(as_of).astimezone(UTC) if isinstance(as_of, str) else (stamp(as_of.isoformat()).astimezone(UTC) if as_of is not None else None)
+    except (ValueError, AttributeError) as e: errors.append('as_of: ' + str(e))
+    if errors: return {'valid': False, 'errors': errors, 'warnings': warnings, 'totals': totals, 'outside_horizon': outside_horizon, 'dependency_readiness': dependency_readiness}
     try: zone = ZoneInfo(state['profile']['timezone'])
-    except Exception as e: return {'valid':False, 'errors':['timezone unavailable: ' + str(e)], 'warnings':[], 'totals':{}, 'outside_horizon':{}}
+    except Exception as e: return {'valid':False, 'errors':['timezone unavailable: ' + str(e)], 'warnings':[], 'totals':{}, 'outside_horizon':{}, 'dependency_readiness':{}}
+    if state['schema_version'] == 1 and 'constraints_v2' in state['extensions']: errors.append('constraints_v2 requires schema_version 2')
+    constraints = state['extensions'].get('constraints_v2', {})
+    for window in constraints.get('availability', []):
+        try:
+            if stamp(window['end'], zone).astimezone(UTC) <= stamp(window['start'], zone).astimezone(UTC): raise ValueError('end must follow start')
+        except ValueError as e: errors.append('availability: ' + str(e))
     profile = state['profile']; sleep = profile['sleep']; horizon = state['dated_plan']
     if sleep and sleep['start'] == sleep['end']: errors.append('sleep window cannot have equal endpoints')
     if profile['week_start'] > 6: errors.append('week_start must be 0..6')
     start = date.fromisoformat(horizon['start']); end = date.fromisoformat(horizon['end'])
     if end <= start: errors.append('dated_plan.end must be after start (exclusive)')
+    try: sleep_intervals(state, start - timedelta(days=1), end + timedelta(days=1))
+    except ValueError as e: errors.append('sleep: ' + str(e))
     def indexed(items, label):
         result = {}
         for item in items:
@@ -96,6 +150,14 @@ def check(state):
     for entry in state['model_week']:
         if entry['task_id'] is not None and entry['task_id'] not in tasks: errors.append('model_week: unknown task ' + entry['task_id'])
         if entry['start'] == entry['end']: errors.append('model_week: equal start/end is invalid')
+    model_spans = []
+    for i, entry in enumerate(state['model_week']):
+        a = entry['weekday'] * 1440 + int(entry['start'][:2])*60 + int(entry['start'][3:])
+        b = entry['weekday'] * 1440 + int(entry['end'][:2])*60 + int(entry['end'][3:])
+        if b <= a: b += 1440
+        for c, d, j in model_spans:
+            if any(a < d + shift and c + shift < b for shift in (-10080, 0, 10080)): errors.append('model_week: overlap entries ' + str(j) + ' and ' + str(i))
+        model_spans.append((a,b,i))
     evidence_ids = {x['id'] for x in state['feedback']} | {x['id'] for x in state['progress']}
     for progress in state['progress']:
         task = tasks.get(progress['task_id'])
@@ -129,7 +191,7 @@ def check(state):
         prefix = task['id'] + '@' + r['frequency'] + ':' + pstart.isoformat() + '#'
         suffix = oid[len(prefix):] if oid.startswith(prefix) else ''
         if not suffix.isdigit() or not 1 <= int(suffix) <= r['count']: errors.append(oid + ': invalid occurrence identity')
-        if occurrence['remaining_minutes'] > r['minutes']: errors.append(oid + ': remaining exceeds occurrence target')
+        if occurrence['remaining_minutes'] is not None and occurrence['remaining_minutes'] > r['minutes']: errors.append(oid + ': remaining exceeds occurrence target')
     # Verify expected occurrence inventory for every full period touching the dated view.
     for tid, task in tasks.items():
         r = task['recurrence']
@@ -141,7 +203,7 @@ def check(state):
                 oid = tid + '@' + r['frequency'] + ':' + ps.isoformat() + '#' + str(n)
                 if oid not in occurrences: warnings.append(oid + ': recurrence occurrence missing; requirement unresolved')
             day = pe
-    spans = []; ids = set(); scheduled = {}; all_by_task = {}
+    spans = []; ids = set(); reservation_ids = set(); scheduled = {}; all_by_task = {}
     for group, items in [('fixed', state['fixed_events']), ('block', horizon['blocks'])]:
         for item in items:
             label = item['id']
@@ -153,6 +215,8 @@ def check(state):
                 if bu <= au: raise ValueError('end must follow start')
             except ValueError as e: errors.append(label + ': ' + str(e)); continue
             spans.append((au, bu, label))
+            if group == 'fixed' and item['kind'] in {'protected', 'buffer', 'unavailable'}:
+                reservation_ids.add(label)
             if group == 'block':
                 task = tasks.get(item['task_id'])
                 if not task: errors.append(label + ': unknown task'); continue
@@ -163,30 +227,71 @@ def check(state):
                     if a.date() < date.fromisoformat(o['period_start']) or b > datetime.combine(date.fromisoformat(o['period_end']), time(), zone): errors.append(label + ': outside recurrence period')
                 elif oid is not None: errors.append(label + ': nonrecurring task has occurrence')
                 minutes = (bu-au).total_seconds()/60
-                if minutes < task['min_session_minutes']: errors.append(label + ': shorter than minimum useful session')
+                if minutes < task['min_session_minutes'] and (as_of is None or bu > as_of): errors.append(label + ': shorter than minimum useful session')
                 if not (start <= a.date() < end) or b > datetime.combine(end, time(), zone): errors.append(label + ': outside dated plan')
                 if item['status'] == 'planned':
-                    scheduled[key] = scheduled.get(key, 0) + minutes
-                    all_by_task.setdefault(task['id'], []).append((au, bu))
+                    future_a = max(au, as_of) if as_of is not None else au
+                    future_minutes = max(0, (bu-future_a).total_seconds()/60)
+                    scheduled[key] = scheduled.get(key, 0) + future_minutes
+                    if future_minutes: all_by_task.setdefault(task['id'], []).append((future_a, bu))
                     if task['deadline'] is not None and bu > stamp(task['deadline'], zone).astimezone(UTC): errors.append(label + ': after deadline')
-            if sleep:
-                day = a.astimezone(zone).date() - timedelta(days=1)
-                last = b.astimezone(zone).date()
-                while day <= last:
-                    sa = datetime.combine(day, time.fromisoformat(sleep['start']), zone)
-                    sd = day + timedelta(days=1) if sleep['end'] < sleep['start'] else day
-                    sb = datetime.combine(sd, time.fromisoformat(sleep['end']), zone)
-                    if au < sb.astimezone(UTC) and sa.astimezone(UTC) < bu: errors.append(label + ': overlaps protected sleep'); break
-                    day += timedelta(days=1)
+            try:
+                item_sleep = sleep_intervals(state, a.astimezone(zone).date() - timedelta(days=1), b.astimezone(zone).date() + timedelta(days=1))
+                # Exceptions may explicitly span more than one day; their start anchor
+                # can precede the ordinary overnight lookback.
+                for anchor, windows in constraints.get('sleep_exceptions', {}).items():
+                    if date.fromisoformat(anchor) < a.astimezone(zone).date() - timedelta(days=1):
+                        item_sleep.extend((stamp(w['start'], zone).astimezone(UTC), stamp(w['end'], zone).astimezone(UTC)) for w in windows)
+                if any(au < sb and sa < bu for sa, sb in item_sleep): errors.append(label + ': overlaps protected sleep')
+            except ValueError as e: errors.append(label + ': sleep ' + str(e))
     spans.sort()
     for i, (a,b,label) in enumerate(spans):
         for c,d,other in spans[i+1:]:
             if c >= b: break
+            # Generic reservation layers describe a union of protected time.
+            # Actual appointments and scheduled work still collide with every layer.
+            if label in reservation_ids and other in reservation_ids: continue
             errors.append(label + ': overlaps ' + other)
     for tid, blocks in all_by_task.items():
+        readiness = 'ready'
+        first = min(x[0] for x in blocks)
         for dep in tasks[tid]['dependencies']:
-            if dep in all_by_task and max(x[1] for x in all_by_task[dep]) > min(x[0] for x in blocks): errors.append(tid + ': scheduled before dependency ' + dep + ' finishes')
-            elif dep in tasks and tasks[dep]['remaining_minutes'] != 0 and dep not in all_by_task: warnings.append(tid + ': dependency remaining effort unresolved: ' + dep)
+            prerequisite = tasks.get(dep)
+            if prerequisite is None: continue
+            remaining = prerequisite['remaining_minutes']
+            if prerequisite['recurrence'] or remaining is None:
+                if readiness != 'blocked': readiness = 'unknown'
+                warnings.append(tid + ': dependency readiness unverified (unknown/series-level): ' + dep)
+            elif remaining > 0:
+                allocated_before = sum((b-a).total_seconds()/60 for a,b in all_by_task.get(dep, []) if b <= first)
+                if allocated_before < remaining:
+                    readiness = 'blocked'
+                    errors.append(tid + ': scheduled before dependency ' + dep + ' full remaining effort finishes')
+        dependency_readiness[tid] = readiness
+    # A valid allocation of an intermediate task does not resolve uncertainty
+    # or a known blocker earlier in its prerequisite chain.
+    direct_readiness = dict(dependency_readiness)
+    propagated = {}
+    def readiness_for(tid, visiting):
+        if tid in propagated: return propagated[tid]
+        if tid in visiting: return 'blocked'  # Cycle is already an explicit error.
+        readiness = direct_readiness.get(tid, 'ready')
+        for dep in tasks[tid]['dependencies']:
+            prerequisite = tasks.get(dep)
+            if prerequisite is None: continue  # Unknown references already fail validation.
+            if not prerequisite['recurrence'] and prerequisite['remaining_minutes'] == 0:
+                continue  # Completed prerequisites need no further allocation.
+            upstream = readiness_for(dep, visiting | {tid})
+            if upstream == 'blocked': readiness = 'blocked'
+            elif upstream == 'unknown' and readiness == 'ready': readiness = 'unknown'
+        propagated[tid] = readiness
+        return readiness
+    for tid in dependency_readiness:
+        readiness = readiness_for(tid, set())
+        if readiness != direct_readiness[tid]:
+            if readiness == 'blocked': errors.append(tid + ': prerequisite chain blocked')
+            elif readiness == 'unknown': warnings.append(tid + ': prerequisite chain readiness unverified')
+        dependency_readiness[tid] = readiness
     requirements = [(t['id'], t['remaining_minutes'], t['required']) for t in tasks.values() if not t['recurrence']]
     for occurrence in occurrences.values():
         if occurrence['task_id'] not in tasks: continue
@@ -202,20 +307,23 @@ def check(state):
         elif allocated > remaining: errors.append(key + ': scheduled effort exceeds remaining effort')
         elif allocated < remaining: warnings.append(key + ': ' + str(remaining-allocated) + ' minutes unallocated' + (' (required)' if required else ' (optional)'))
     if sleep is None: warnings.append('sleep unknown; hard-constraint feasibility unverified')
-    return {'valid': not errors, 'errors': sorted(set(errors)), 'warnings': sorted(set(warnings)), 'totals': totals, 'outside_horizon': outside_horizon}
+    return {'valid': not errors, 'errors': sorted(set(errors)), 'warnings': sorted(set(warnings)), 'totals': totals, 'outside_horizon': outside_horizon, 'dependency_readiness': dependency_readiness}
 
 
 def digest(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()).hexdigest()
 
 
-def commit(current_path, proposed_path, expected, update_id, replace_extensions=()):
+def commit(current_path, proposed_path, expected, update_id, replace_extensions=(), as_of=None):
     current_path = Path(current_path)
     if current_path.is_symlink(): raise ValueError('refuse symbolic-link state')
     proposal = load(proposed_path)
     allowed_extensions = set(replace_extensions)
     if any(not key.strip() for key in allowed_extensions): raise ValueError('replacement extension key must not be empty')
-    proposal_hash = digest({'proposal':proposal, 'replace_extensions':sorted(allowed_extensions)})
+    contract = {'proposal':proposal, 'replace_extensions':sorted(allowed_extensions)}
+    as_of = stamp(as_of).astimezone(UTC) if isinstance(as_of, str) else (stamp(as_of.isoformat()).astimezone(UTC) if as_of is not None else None)
+    if as_of is not None: contract['as_of'] = as_of.isoformat()
+    proposal_hash = digest(contract)
     lock = current_path.with_name(current_path.name + '.lock')
     fd = os.open(str(lock), os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
     try:
@@ -228,6 +336,7 @@ def commit(current_path, proposed_path, expected, update_id, replace_extensions=
                 if record['sha256'] != proposal_hash: raise ValueError('update ID conflicts with different proposal')
                 return {'committed':False, 'duplicate':True, 'revision':current['revision']}
         if current['revision'] != expected or proposal['revision'] != expected: raise ValueError('stale revision; reread and reconcile')
+        if current['schema_version'] > proposal['schema_version']: raise ValueError('schema version downgrade forbidden')
         if current['plan_id'] != proposal['plan_id']: raise ValueError('plan identity changed')
         for key in allowed_extensions:
             if key not in proposal['extensions']: raise ValueError('replacement extension must be present in proposal: ' + key)
@@ -241,7 +350,16 @@ def commit(current_path, proposed_path, expected, update_id, replace_extensions=
         new_blocks = {b['id']:b for b in proposal['dated_plan']['blocks']}
         for bid, block in old_completed.items():
             if new_blocks.get(bid) != block: raise ValueError('completed work changed/deleted: ' + bid)
-        result = check(proposal)
+        if as_of is not None:
+            for old in current['dated_plan']['blocks']:
+                a, b = stamp(old['start']).astimezone(UTC), stamp(old['end']).astimezone(UTC)
+                if a >= as_of: continue
+                new = new_blocks.get(old['id'])
+                if new is None or any(new[k] != old[k] for k in ('task_id','occurrence_id','start')): raise ValueError('elapsed work changed/deleted: ' + old['id'])
+                new_end = stamp(new['end']).astimezone(UTC)
+                if (b <= as_of and new['end'] != old['end']) or (b > as_of and new_end < as_of): raise ValueError('elapsed work timing changed: ' + old['id'])
+        result = check(proposal, as_of)
+        if as_of is None: result['warnings'].append('elapsed preservation unverified; provide --as-of')
         if not result['valid']: raise ValueError('invalid proposed state: ' + '; '.join(result['errors']))
         proposal['revision'] += 1
         proposal['updated_at'] = datetime.now(UTC).isoformat()
@@ -261,14 +379,14 @@ def commit(current_path, proposed_path, expected, update_id, replace_extensions=
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);sub=p.add_subparsers(dest='command',required=True)
-    c=sub.add_parser('check');c.add_argument('state')
-    c=sub.add_parser('commit');c.add_argument('current');c.add_argument('proposed');c.add_argument('--expected-revision',type=int,required=True);c.add_argument('--update-id',required=True);c.add_argument('--replace-extension',action='append',default=[],metavar='KEY')
+    c=sub.add_parser('check');c.add_argument('state');c.add_argument('--as-of')
+    c=sub.add_parser('commit');c.add_argument('current');c.add_argument('proposed');c.add_argument('--expected-revision',type=int,required=True);c.add_argument('--update-id',required=True);c.add_argument('--replace-extension',action='append',default=[],metavar='KEY');c.add_argument('--as-of')
     a=p.parse_args()
     try:
         if a.command=='check':
-            result=check(load(a.state));print(json.dumps(result,indent=2));return 0 if result['valid'] else 2
+            result=check(load(a.state),a.as_of);print(json.dumps(result,indent=2));return 0 if result['valid'] else 2
         if not a.update_id.strip(): raise ValueError('update ID must not be empty')
-        print(json.dumps(commit(a.current,a.proposed,a.expected_revision,a.update_id,a.replace_extension),indent=2));return 0
+        print(json.dumps(commit(a.current,a.proposed,a.expected_revision,a.update_id,a.replace_extension,a.as_of),indent=2));return 0
     except (ValueError,KeyError,TypeError,OSError,RecursionError) as e:
         print(json.dumps({'error':str(e)}));return 2
 

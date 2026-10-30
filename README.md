@@ -41,21 +41,26 @@ For continuity, choose a private state location **outside this repository and in
 | Capacity, deadlines, recurrence, overload | Explicit arithmetic, full-period occurrence IDs; scheduling fixtures and model probes |
 | Replanning and feedback | Preserve confirmed progress, repair affected future work, evidence-linked reversible adjustments; staged model cases |
 | Local state and portable continuity | Documented JSON schema; CAS/idempotent atomic helper; fresh-context synthetic resume |
-| Optional integrity checker | Python standard library; 32 executed tests covering constraints, DST, state conflicts and whole examples |
+| Optional integrity checker | Python standard library; regression tests covering constraints, DST, state conflicts and whole examples |
 
 The skill provides instructions for a capable assistant; it is not an autonomous scheduling application or a full optimizer. The helper does not prove all capacity, adaptation quality or prose-view consistency. Read its warnings and the [validation report](adaptive-planning/validation/report.md), including the inconclusive baseline comparison. Long-term personal outcomes are untested.
 
 Conversation-based planning needs no Compass vault, Obsidian, calendar, Python or Skill Forge installation. The optional helper needs Python 3.9+ and IANA timezone data. Calendar/Obsidian operations require an actual supported connector and authorization. Reminders/background check-ins require a real scheduler and separate authorization; they are not included features.
+
+Version 0.2.0 adds circular model-week overlap checks, full known prerequisite allocation, opt-in version2 availability/sleep constraints, explicit as-of history protection, and an aggregate capacity/view utility. Legacy version1 state remains readable; personal state is never migrated just by installation.
 
 ## Run the checks
 
 ```sh
 python3 -m unittest discover -s adaptive-planning/validation -p 'test_*.py' -v
 python3 scripts/validate_release.py
+# Optional independent schema check (developer Python3.10+ environment):
+python3 -m pip install -r requirements-dev.txt
+python3 scripts/validate_schema.py
 python3 adaptive-planning/scripts/planning_state.py check adaptive-planning/examples/initial-state.json
 ```
 
-Tests use synthetic data only. The CI workflow runs the deterministic suite and package integrity checks. Model-response examples are recorded evidence, not a guarantee that every assistant will behave identically.
+Tests use synthetic data only. The CI workflow runs the deterministic suite, package integrity checks and an independent full-schema job. See [the changelog](CHANGELOG.md) for the implemented 0.2.0 changes. Model-response examples are recorded evidence, not a guarantee that every assistant will behave identically.
 
 Public release/install/discovery checks: [Release verification](VERIFICATION.md).
 

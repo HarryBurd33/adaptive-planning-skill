@@ -11,3 +11,7 @@ Verified for initial public release on 2026-10-26 America/Denver.
 - Topics verified: adaptive-planning, agent-skills, codex, codex-skills, compass, obsidian, productivity, python, scheduling, time-management.
 
 This verification adds documentation only; the installed skill tree is unchanged from the initial published commit. Calendar/Obsidian integration and background reminders are not built-in promises. See adaptive-planning/validation/report.md for unsupported checks and the inconclusive baseline comparison.
+
+## Version 0.2.0 verification
+
+The update retains all 32 original tests and passes 70 deterministic cases. Independent full-schema checks validate four fixtures and reject malformed times. Separate fresh baseline/candidate contexts and independent resource review are recorded in adaptive-planning/validation/report.md. The release package is generated reproducibly with scripts/package_skill.py and verified byte-for-byte against the skill folder. Installation must compare the existing unmodified global copy with the preserved baseline and retain rollback. Personal planning state is never migrated during installation. Native discovery and remote CI/readback are recorded at final delivery; do not infer them from this source description alone.

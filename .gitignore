@@ -5,3 +5,6 @@ __pycache__/
 .forge/
 planning-state/
 *.lock
+
+.venv/
+dist/

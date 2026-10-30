@@ -15,5 +15,8 @@
   "model_identity": "unknown inherited configured model",
   "reasoning_effort": "unknown inherited effort",
   "host_python": "3.15.0",
-  "comparison": "inconclusive: inherited context contamination; no causal improvement claim"
+  "comparison": "inconclusive: inherited context contamination; no causal improvement claim",
+  "historical_version": "0.1.0",
+  "source_ref": "v0.1.0",
+  "note": "Historical identities; current0.2 evidence is under upgrade-0.2.0 and current manifest."
 }

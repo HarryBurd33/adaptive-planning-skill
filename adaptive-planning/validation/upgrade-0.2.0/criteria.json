@@ -1,0 +1,58 @@
+{
+  "frozen_at": "2026-10-30T19:19:58.802318+00:00",
+  "max_candidates": 3,
+  "wall_minutes": 30,
+  "reserve_percent": 20,
+  "cases": [
+    {
+      "id": "model-overlap",
+      "input": "Mon08:30\u201309:30/09:00\u201310:00; Sun23:30\u2013Mon01:00 versus Mon00:30\u201301:30",
+      "expected": "known overlap errors; touching endpoints pass"
+    },
+    {
+      "id": "dependency",
+      "input": "A120remaining/60planned, B depends A and follows60; contrast full120, unknown and zero",
+      "expected": "partial blocked error; unknown unverified; zero/full correctly ready"
+    },
+    {
+      "id": "capacity",
+      "input": "480required,300available,20percent buffer",
+      "expected": "240usable,240shortfall; never feasible"
+    },
+    {
+      "id": "availability",
+      "input": "missing versus[]; overlapping protected windows;15m gap/min30; explicit buffer blocks",
+      "expected": "unknown versus0; union once; exclude gap; buffer not double-counted"
+    },
+    {
+      "id": "sleep",
+      "input": "anchored sleep exception Nov2 endingNov3 06:00; taskNov3 06:30; contrast normal subsequent night",
+      "expected": "exception only that anchor; normal protection retained; IANA offsets checked"
+    },
+    {
+      "id": "elapsed",
+      "input": "as-of09:30 old09\u201310; try move10\u201311; preserve09\u201309:30 then new future segment",
+      "expected": "reject elapsed rewrite; preserve history; exclude elapsed unknown portion from future planned totals"
+    },
+    {
+      "id": "state",
+      "input": "v1->v2; v2->v1; same update retry; changed as-of; unknown recurrence versus0",
+      "expected": "lossless upgrade; reject downgrade/stale/conflicting contract; preserve unknown"
+    },
+    {
+      "id": "schema",
+      "input": "HH:MM23:00 valid;24:61 invalid; valid/invalid fixtures",
+      "expected": "custom and full-schema checks agree"
+    },
+    {
+      "id": "views",
+      "input": "cross-month weekly occurrence and DST repeated-hour block",
+      "expected": "day/week/month totals conserve actual elapsed minutes and shared occurrence IDs"
+    },
+    {
+      "id": "behavior",
+      "input": "original initial/disruption/feedback/overload/continuity/nonactivation cases",
+      "expected": "hard constraints/progress preserved, unmet explicit; concise continuity with IDs and reasons"
+    }
+  ]
+}

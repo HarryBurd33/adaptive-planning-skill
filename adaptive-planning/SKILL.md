@@ -2,7 +2,7 @@
 name: adaptive-planning
 description: Create realistic day, week, or month plans, design a model week, replan after disruptions, and improve schedules from feedback. Use for requests such as planning around exams, adding recurring activities, moving displaced work, or resuming a saved plan. Do not activate for incidental dates or general productivity questions. Calendar writes and reminders require separate authorization.
 metadata:
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Adaptive planning
@@ -25,14 +25,14 @@ Use [the planning procedure](references/planning.md) for capacity arithmetic, re
 2. Calculate usable capacity from the union of protected/fixed intervals, then subtract the explicit reserves. Avoid double subtraction for overlaps. Report usable, allocated, buffer and unmet minutes for relevant deadlines/periods.
 3. Split larger tasks into feasible sessions/milestones using remaining effort, minimum session length and dependencies. Place prerequisites first. Reserve deadline work before optional activity when priorities require it.
 4. Place recurring and flexible activities in available windows using the person's preferences and reported energy. Generate occurrence identities from whole local recurrence periods, including weeks crossing months. Do not manufacture habit debt from missed occurrences.
-5. Check overlaps, sleep, transitions, session limits, required effort, deadlines, dependencies, recurrence totals and horizon agreement. Use [the optional checker](scripts/planning_state.py) only according to [its documented contract](references/state.md); inspect findings, since a successful file write is not a feasible-plan certificate. Without the helper, do these checks explicitly.
+5. Check overlaps, sleep, transitions, session limits, required effort, deadlines, dependencies, recurrence totals and horizon agreement. Use [the optional checker](scripts/planning_state.py) only according to [its documented contract](references/state.md); inspect findings, since a successful file write is not a feasible-plan certificate. When explicit availability is recorded, use [the capacity report](references/capacity.md) to calculate bounds and derive dated views. Without the helpers, do these checks explicitly.
 6. If work cannot fit, quantify the shortfall and present concrete scope/deadline/priority options. Seek the person's consequential choice. Never silently shorten sleep, delete required work or promise impossible completion. If changing a proposed buffer could help, show that tradeoff explicitly.
 
 A **month** shows deadlines, milestones, recurring commitments and capacity by week, with partial-week boundaries visible. Avoid precise hourly commitments far into uncertainty. A **week** allocates work into dated sessions. A **day** shows actionable blocks and remaining priorities. Derive all dated views from the same blocks and occurrence ledger, not independent copies that drift. Keep the reusable **model week** separate; an exam-week exception does not rewrite normal routines.
 
 ## Replan with minimal disruption
 
-Read the latest saved revision, actual progress and current time first. Preserve completed work, elapsed portions, fixed commitments and unaffected future blocks where practical. Apply each update once using its stable update/event ID. Partial completion reduces remaining work once; a retry must not reduce it again.
+Read the latest saved revision, actual progress and current time first. For helper checks/commits, pass a verified aware `--as-of` timestamp so elapsed planned slots cannot be reused as future capacity or rewritten. A past slot with no progress report stays unknown; time passing is not task completion. Preserve completed work, elapsed portions, fixed commitments and unaffected future blocks where practical. Apply each update once using its stable update/event ID. Partial completion reduces remaining work once; a retry must not reduce it again.
 
 Find blocks affected directly or through dependencies. Move only necessary future work, maintaining stable IDs and recording moves. Recompute remaining effort, capacity, deadlines and recurrence totals. Preserve history instead of moving completed blocks into the future. A new fixed event conflicting with another fixed event is a conflict for the user to resolve. List changed blocks, important tradeoffs and anything still unscheduled. See [replanning and adaptation](references/adaptation.md).
 
@@ -44,7 +44,7 @@ Apply explicit preference changes. For inferred patterns, record supporting feed
 
 ## Save and return only what helps
 
-Keep personal state in a user-approved location outside this installed folder. Before updating, read the current state, check its revision, preserve unrelated content and use the documented conflict/idempotency protocol. Never silently overwrite a stale revision. If durable storage is unavailable, supply the compact portable handoff described in [state and continuity](references/state.md), including unresolved items. Never claim cross-chat memory without saved state that can be read.
+Keep personal state in a user-approved location outside this installed folder. Version-1 state remains readable. To use explicit availability or sleep exceptions, prepare a lossless version-2 proposal and follow the migration rules in the state reference; never silently upgrade or overwrite another revision. Before updating, read the current state, check its revision, preserve unrelated content and use the documented conflict/idempotency protocol. Never silently overwrite a stale revision. If durable storage is unavailable, supply the compact portable handoff described in [state and continuity](references/state.md), including unresolved items. Aim for a 250–350 word portable handoff when that retains all essential IDs, constraints, progress, adaptations and next steps; link a saved state file or provide full JSON when needed rather than drop essential facts to meet a word target. Use [the handoff template](templates/handoff.md). Never claim cross-chat memory without saved state that can be read.
 
 Return the relevant subset: concise changed constraints/assumptions; dated agenda, weekly schedule, model week or monthly overview; capacity/deadline and recurring totals; unmet/unscheduled work; short change summary; evidence-backed adjustments and undo; saved-state location/revision or portable handoff. Prefer `Date | Time | ID | Activity` for dated blocks and `Task/occurrence | Required | Planned | Unmet` for checks; omit columns that do not help. Keep ordinary check-ins brief. [Examples](examples/scenarios.md) illustrate the style and boundaries.
 
