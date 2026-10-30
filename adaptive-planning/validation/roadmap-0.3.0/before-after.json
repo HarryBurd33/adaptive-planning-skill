@@ -1,0 +1,21 @@
+{
+  "baseline_version": "0.2.0",
+  "candidate_version": "0.3.0",
+  "scope": "New deterministic helper capability only; not a planning-effectiveness comparison",
+  "cases": {
+    "planning_trial.py": {
+      "baseline_exit": 2,
+      "baseline_stderr": "/opt/homebrew/Cellar/python@3.15/3.15.0/Frameworks/Python.framework/Versions/3.15/Resources/Python.app/Contents/MacOS/Python: can't open file '<baseline>/adaptive-planning/scripts/planning_trial.py': [Errno 2] No such file or directory\n",
+      "candidate_exit": 0,
+      "candidate_output_bytes": 2300,
+      "candidate_output_sha256": "bc3887e7c18c0d8e327f5398af183582ecc00ee738c8ecc4bcfe7aa2c2d3e821"
+    },
+    "planning_export.py": {
+      "baseline_exit": 2,
+      "baseline_stderr": "/opt/homebrew/Cellar/python@3.15/3.15.0/Frameworks/Python.framework/Versions/3.15/Resources/Python.app/Contents/MacOS/Python: can't open file '<baseline>/adaptive-planning/scripts/planning_export.py': [Errno 2] No such file or directory\n",
+      "candidate_exit": 0,
+      "candidate_output_bytes": 120,
+      "candidate_output_sha256": "7af55fdc29caf99797c326e3065687389005de0443e5e407e3078007c99085bd"
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{"independent_calendar_parser": true, "unicode_text_roundtrip": true, "utc_dst_duration_minutes": 60, "stable_uid_on_move": true, "no_invites_alarms_or_injected_events": true, "expired_excluded": true}

@@ -15,3 +15,7 @@ This verification adds documentation only; the installed skill tree is unchanged
 ## Version 0.2.0 verification
 
 The update retains all 32 original tests and passes 70 deterministic cases. Independent full-schema checks validate four fixtures and reject malformed times. Separate fresh baseline/candidate contexts and independent resource review are recorded in adaptive-planning/validation/report.md. The release package is generated reproducibly with scripts/package_skill.py and verified byte-for-byte against the skill folder. Installation must compare the existing unmodified global copy with the preserved baseline and retain rollback. Personal planning state is never migrated during installation. Native discovery and remote CI/readback are recorded at final delivery; do not infer them from this source description alone.
+
+## Version0.3.0 verification
+
+Local98-test suite retains all70 prior cases. Independent fullschema validates five fixtures; pinned independent calendar parser and separate reviewer probes pass. Trial/export metadata and remaining limits are in the current validation report. Matching deterministic ZIP, global byte parity/rollback/native discovery and exact hosted CI are verified during release and recorded in the release notes; this source section alone does not assert those external checks. No personal trial data is published.

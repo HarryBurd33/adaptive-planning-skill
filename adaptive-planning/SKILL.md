@@ -2,7 +2,7 @@
 name: adaptive-planning
 description: Create realistic day, week, or month plans, design a model week, replan after disruptions, and improve schedules from feedback. Use for requests such as planning around exams, adding recurring activities, moving displaced work, or resuming a saved plan. Do not activate for incidental dates or general productivity questions. Calendar writes and reminders require separate authorization.
 metadata:
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # Adaptive planning
@@ -41,6 +41,12 @@ Find blocks affected directly or through dependencies. Move only necessary futur
 Support a brief daily check-in **or** a weekly review; neither requires the other. Ask about completion, actual durations, what worked, what felt unrealistic, and reasons for misses only as useful. Missing tracking is unknown, not failure. Reflect the person's experience without scores, penalties or moral judgments.
 
 Apply explicit preference changes. For inferred patterns, record supporting feedback IDs and competing explanations. A proposed evidence threshold is at least three relevant observations; it is a guardrail, not proof. One disruption must not become a permanent preference. With sufficient evidence, apply a reversible timing/session/estimate/buffer adjustment, explain why, preserve the prior value and say how to undo it. Prefer a small trial when evidence is mixed. Changes to declared sleep, hard commitments, required scope or a real deadline always require the user's instruction or choice. Do not infer those changes from feedback. Adaptation updates planning records; it does not retrain the underlying model.
+
+## Optional trial and portable exports
+
+When the person requests a real-use trial, follow [trial and review](references/trial.md): save a private baseline and collect only reported actual durations, reasons for moves, planning burden and helpfulness. Missing reports stay unknown; elapsed dates do not complete work or prove effectiveness. Use the read-only trial report with an explicit as-of instant when useful. Do not impose trial intake or check-ins on ordinary planning or general productivity questions.
+
+When asked for a calendar file or Obsidian note, use [portable exports](references/exports.md). Export only future planned canonical work, preserving stable IDs and in-progress starts. Preview private artifacts; do not interpret a local file as a live event write, two-way sync or reminder. Existing changed files must be preserved. Inspect warnings and remaining assumptions before describing an agenda as feasible.
 
 ## Save and return only what helps
 

@@ -1,0 +1,58 @@
+{
+  "frozen_at": "2026-10-30T19:49:19.889342+00:00",
+  "max_candidates": 3,
+  "wall_minutes": 30,
+  "baseline_commit": "49b7dae17fc84967d2e71efb56cff3dde68afd2e",
+  "cases": [
+    {
+      "id": "export-identity",
+      "input": "same block identical retry; move sameID at revision+1; distinct plan IDs",
+      "expected": "same UID on retry/move, new timestamp/sequence on move, distinctUID for anotherplan"
+    },
+    {
+      "id": "export-escaping",
+      "input": "multiline Unicode title containing comma semicolon backslash, long lines and event-looking text",
+      "expected": "RFC5545 CRLF/UTF8 folding and escaping; no injected event/alarm/invitation; independent parser returns originaltitle"
+    },
+    {
+      "id": "export-scope",
+      "input": "planned future, completed and ended-unreported blocks plus fixedexisting events, DST repeated hour",
+      "expected": "only future plannedcanonical blocks; original inprogress start retained; UTC elapsed correct; no calendar invites/alarms"
+    },
+    {
+      "id": "export-persistence",
+      "input": "repeat identical export, changed existing file, symlink and source state target",
+      "expected": "identical success; preserve changed files and source bytes; no forceoverwrite"
+    },
+    {
+      "id": "trial-report",
+      "input": "2h reported actual, zero actual, null actual, several absent reports and future days",
+      "expected": "distinct raw duration samples, zero preserved, absent unknown, future pending; no completion inferred"
+    },
+    {
+      "id": "trial-correction",
+      "input": "stable progress IDs repeated invocation; feedback why move; baseline currentblock ID same/newtimes",
+      "expected": "repeat no mutation/double count; exactevidence IDs; recordedmove notguessedcause"
+    },
+    {
+      "id": "trial-empty-invalid",
+      "input": "missing trial metadata vs zero reviews; malformed ranges/reviews; future baseline revision",
+      "expected": "missing setup explicit, empty valid doesnotmean completed; invalid metadata rejected"
+    },
+    {
+      "id": "compatibility",
+      "input": "all existing70 tests, version1 and2; invalid scheduling state; malformed asof",
+      "expected": "regressions pass; helpers rejectinvalidstate; never modify source"
+    },
+    {
+      "id": "activation",
+      "input": "What makes a good habit? vs export my saved plan and summarize trial without reports",
+      "expected": "generalanswer no trialintake; on request export/summarize onlyknown; no pretend reminder/calendarwrite"
+    },
+    {
+      "id": "independent-review",
+      "input": "review actual helper/docs with independent synthetic edge cases",
+      "expected": "no unresolved critical defects or staleinstructions; publish limits honestly"
+    }
+  ]
+}

@@ -49,6 +49,18 @@ Conversation-based planning needs no Compass vault, Obsidian, calendar, Python o
 
 Version 0.2.0 adds circular model-week overlap checks, full known prerequisite allocation, opt-in version2 availability/sleep constraints, explicit as-of history protection, and an aggregate capacity/view utility. Legacy version1 state remains readable; personal state is never migrated just by installation.
 
+## Trial reporting and portable exports
+
+Version0.3.0 adds an optional private [real-use trial record/report](adaptive-planning/references/trial.md) and [calendar/Obsidian file exports](adaptive-planning/references/exports.md). The stdlib helpers require an explicit as-of timestamp, preserve source state, retain unknown-versus-zero reports, and refuse to overwrite changed export files. Calendar files have stable canonical IDs and escaped UTC events; Markdown is a standalone note. Neither exports existing fixed appointments. They do not create live events, reminders or two-way sync. Calendar-client reimport behavior still needs provider-specific verification.
+
+```sh
+python3 adaptive-planning/scripts/planning_trial.py /private/planning/state.json --as-of 2026-11-04T17:00:00-07:00
+python3 adaptive-planning/scripts/planning_export.py /private/planning/state.json --format ics --as-of 2026-11-04T17:00:00-07:00 --output /private/planning/plan-r5.ics
+python3 adaptive-planning/scripts/planning_export.py /private/planning/state.json --format markdown --as-of 2026-11-04T17:00:00-07:00 --output /private/planning/plan-r5.md
+```
+
+Keep actual trial/state/export files private and outside this repository. Missing check-ins are unknown, and elapsed dates do not establish completion or effectiveness. The repository includes synthetic tests and examples only; it cannot claim a completed longitudinal trial.
+
 ## Run the checks
 
 ```sh
@@ -57,6 +69,7 @@ python3 scripts/validate_release.py
 # Optional independent schema check (developer Python3.10+ environment):
 python3 -m pip install -r requirements-dev.txt
 python3 scripts/validate_schema.py
+python3 scripts/validate_calendar.py
 python3 adaptive-planning/scripts/planning_state.py check adaptive-planning/examples/initial-state.json
 ```
 

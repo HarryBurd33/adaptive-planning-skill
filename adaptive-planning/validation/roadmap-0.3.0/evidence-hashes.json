@@ -1,0 +1,13 @@
+{
+  "version": "0.3.0",
+  "behavior_files": {
+    "SKILL.md": "5e09b5000ad8428e36e809d09c2d43195b8bbd7b47ccb4ecfa95f727e333a2bd",
+    "scripts/planning_export.py": "5f05197bdb370b97f9fa437494645af4a3ac6b9e9a7fb1d858ffa3a7c89a17ee",
+    "scripts/planning_trial.py": "6999d0fbec20809e94ffafb51549d2b16bccfaeb8f0bf306ebc421d6873fe5f6",
+    "references/trial.md": "5047968cac3c6b31f9979d7e609cbf8dd6480916188e989fd00f58a50a5e52f5",
+    "references/exports.md": "d30c214da8652e391439d2f6fec538abd5d61034b75b6cb1465f1f128f640d28"
+  },
+  "criteria_sha256": "a7cbdb619f9bda6f9608d3b4c6b10652b2ca149283c7c29eaf0247bc7491d18a",
+  "executing_identity": "uninstrumented",
+  "data": "synthetic public cases only"
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "plan_id": "synthetic-trial-example",
+  "revision": 0,
+  "updated_at": "2026-11-02T07:00:00-07:00",
+  "profile": {
+    "timezone": "America/Denver",
+    "week_start": 0,
+    "sleep": null
+  },
+  "tasks": [
+    {
+      "id": "work",
+      "title": "Work",
+      "remaining_minutes": 120,
+      "deadline": null,
+      "preferred_date": null,
+      "priority": "high",
+      "required": true,
+      "flexible": true,
+      "dependencies": [],
+      "min_session_minutes": 30,
+      "recurrence": null
+    }
+  ],
+  "occurrences": [],
+  "fixed_events": [],
+  "model_week": [],
+  "dated_plan": {
+    "start": "2026-11-02",
+    "end": "2026-11-05",
+    "blocks": [
+      {
+        "id": "w1",
+        "task_id": "work",
+        "occurrence_id": null,
+        "start": "2026-11-02T10:00:00-07:00",
+        "end": "2026-11-02T11:00:00-07:00",
+        "status": "planned"
+      }
+    ],
+    "unscheduled": []
+  },
+  "progress": [
+    {
+      "id": "sample-work",
+      "task_id": "work",
+      "occurrence_id": null,
+      "observed_at": "2026-11-02T12:00:00-07:00",
+      "remaining_minutes": 120,
+      "actual_minutes": 30,
+      "note": "Synthetic partial-work duration; not a whole-task duration."
+    }
+  ],
+  "feedback": [
+    {
+      "id": "sample-feedback",
+      "observed_at": "2026-11-03T17:00:00-07:00",
+      "text": "Synthetic report: logging felt brief; uncertain whether timing changes helped."
+    }
+  ],
+  "adaptations": [],
+  "applied_updates": [],
+  "extensions": {
+    "trial": {
+      "id": "synthetic-trial",
+      "start_date": "2026-11-02",
+      "end_date": "2026-11-05",
+      "baseline_revision": 0,
+      "baseline_blocks": [
+        {
+          "id": "w1",
+          "task_id": "work",
+          "occurrence_id": null,
+          "start": "2026-11-02T10:00:00-07:00",
+          "end": "2026-11-02T11:00:00-07:00",
+          "status": "planned"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "sample-review",
+          "observed_at": "2026-11-03T17:00:00-07:00",
+          "burden_minutes": 3,
+          "helped": null,
+          "reason": null,
+          "note": "Synthetic optional review; no effectiveness conclusion."
+        }
+      ]
+    }
+  }
+}

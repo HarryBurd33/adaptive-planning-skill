@@ -1,6 +1,14 @@
 # Adaptive Planning roadmap
 
-Audit date: 2026-10-30 (America/Denver). This is a prioritized implementation and verification plan, not a claim that the proposed features are delivered. Historical pre-implementation release: 0.1.0; current technical release: 0.2.0. Basic conversational planning already works; the optional helper checks a documented subset of constraints.
+Audit date: 2026-10-30 (America/Denver). This is a prioritized implementation and verification plan, not a claim that the proposed features are delivered. Historical pre-implementation release: 0.1.0; current technical release: 0.3.0. Basic conversational planning already works; the optional helper checks a documented subset of constraints.
+
+## Version0.3.0 continuation
+
+Step4 now has a private baseline/review contract and a read-only trial report. Synthetic tests verify unknown/zero reports, elapsed dates, stable timing comparisons and local reporting dates. Actual longitudinal outcomes still require the agreed dates and real reported experience; none are published or inferred.
+
+Step5 now has local iCalendar and Markdown/Obsidian artifact adapters with stable block IDs, UTC dates, escaping, explicit as-of filtering and safe output retries. They are file snapshots, not connected-provider synchronization. A separate pinned parser checks the calendar format. A live calendar connector, two-way vault sync, reminder delivery and multi-device private storage are still unimplemented/unverified.
+
+Next gates: gather missing personal constraints privately, use the saved baseline during the trial period, review reported effort/burden/changes after actual use, then select and connect a provider for exact authorized operations and duplicate/uncertain-outcome tests. A native scheduler exists on supported hosts, but installation creates no job; timing and delivery require a separate requested reminder. Provider/account choices and data-access permission are not inferred from an export request.
 
 ## Version 0.2.0 implementation status
 
@@ -10,7 +18,7 @@ The technical release implements the scheduling/state/capacity/schema/handoff wo
 - Step 2b: implemented explicit capacity bounds, version-2 sleep overrides, deterministic as-of preservation, canonical data views, and a pinned independent schema check. The helper remains a bound/checker, not a joint placement optimizer or prose reviewer.
 - Step 3: completed one separate-context matched baseline/candidate round and independent resource review. Executing identity is not independently instrumented; no general superiority claim is made.
 - Step 4: added concise handoff guidance/template and tested continuity. A consented real-person longitudinal trial remains pending actual use and feedback.
-- Step 5: optional integrations remain unimplemented and require a real connector/scheduler and separate authorization.
+- Step 5 at0.2: optional integrations were unimplemented. Version0.3 adds portable file adapters only; live services remain subject to the gates above.
 
 See [the current validation report](adaptive-planning/validation/report.md) and [CHANGELOG.md](CHANGELOG.md). The sections below retain the original plan and acceptance gates for traceability; they must not be read as claiming every future optional feature is shipped.
 
